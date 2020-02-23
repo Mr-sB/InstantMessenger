@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ESocketCommon">
-      <HintPath>..\..\EasySocket\ESocketCommon\bin\Release\ESocketCommon.dll</HintPath>
+    <Reference Include="ESocketCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\EasySocket\ESocket-OnPremise-Server-SDK\SDK\ESocketCommon\ESocketCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

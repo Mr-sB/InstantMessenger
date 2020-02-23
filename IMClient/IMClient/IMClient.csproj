@@ -18,7 +18,7 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -40,6 +40,7 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -58,13 +59,13 @@
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ESocketClient">
-      <HintPath>..\..\EasySocket\ESocketClient\bin\Release\ESocketClient.dll</HintPath>
+    <Reference Include="ESocketClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\EasySocket\ESocket-OnPremise-Server-SDK\SDK\ESocketClient\ESocketClient.dll</HintPath>
     </Reference>
-    <Reference Include="ESocketCommon">
-      <HintPath>..\..\EasySocket\ESocketCommon\bin\Release\ESocketCommon.dll</HintPath>
+    <Reference Include="ESocketCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\EasySocket\ESocket-OnPremise-Server-SDK\SDK\ESocketCommon\ESocketCommon.dll</HintPath>
     </Reference>
-    <Reference Include="IMCommon">
+    <Reference Include="IMCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\IMServer\IMCommon\bin\Release\IMCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />

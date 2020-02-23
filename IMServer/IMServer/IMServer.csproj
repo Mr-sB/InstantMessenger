@@ -42,11 +42,11 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="ESocketCommon">
-      <HintPath>..\..\EasySocket\ESocketCommon\bin\Release\ESocketCommon.dll</HintPath>
+    <Reference Include="ESocketCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\EasySocket\ESocket-OnPremise-Server-SDK\SDK\ESocketCommon\ESocketCommon.dll</HintPath>
     </Reference>
-    <Reference Include="ESocketServer">
-      <HintPath>..\..\EasySocket\ESocketServer\bin\Release\ESocketServer.dll</HintPath>
+    <Reference Include="ESocketServer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\EasySocket\ESocket-OnPremise-Server-SDK\SDK\ESocketServer\ESocketServer.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.2.1.2\lib\net461\FluentNHibernate.dll</HintPath>
@@ -138,7 +138,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)*.*" "D:\ESocket-OnPremise-Server-SDK\IMServer"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
