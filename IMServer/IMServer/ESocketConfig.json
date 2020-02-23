@@ -1,0 +1,11 @@
+﻿{
+  "ApplicationConfig": {
+    "BaseDirectory": "IMServer",
+    "AssemblyFileName": "IMServer",
+    "TypeWithNamespace": "IMServer.IMApplication"
+  },
+  "ConnectConfig": {
+    "ServerIP": "127.0.0.1",
+    "Port": 5000
+  }
+}
