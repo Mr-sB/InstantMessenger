@@ -186,7 +186,7 @@ namespace IMClient
             mNicknameLayout.Visibility = signUpState;
             mSignInButton.Visibility = signInState;
             mSignUpButton.Visibility = signUpState;
-            mSignUpClickableText.Text = isSignIn ? "注册    " : "登录    ";
+            mSignUpClickableText.Text = isSignIn ? "注册" : "登录";
         }
 
         public void OnSignInSuccess()
