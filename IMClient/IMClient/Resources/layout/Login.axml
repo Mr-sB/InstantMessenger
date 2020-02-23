@@ -1,89 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
-	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-		<TextView
-			android:text="用户名:"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="25px"
-			android:minHeight="25px"
-			android:id="@+id/textView1" />
-		<EditText
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/UsernameText"  />
+			android:orientation="horizontal">
+		<TextView
+				android:text="用户名:"
+				android:textAppearance="@android:style/TextAppearance.Material.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:id="@+id/textView1"/>
+		<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/UsernameText"
+				android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 	</LinearLayout>
 	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-		<TextView
-			android:text="密    码:"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="25px"
-			android:minHeight="25px"
-			android:id="@+id/textView2" />
-		<EditText
-			android:inputType="textPassword"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/PasswordText"
-			android:password="true" />
+			android:orientation="horizontal">
+		<TextView
+				android:text="密    码:"
+				android:textAppearance="@android:style/TextAppearance.Material.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:id="@+id/textView2"/>
+		<EditText
+				android:inputType="textPassword"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/PasswordText"
+				android:textAppearance="@android:style/TextAppearance.Material.Large"
+				android:password="true"/>
 	</LinearLayout>
 	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:id="@+id/NicknameLayout"
-		android:visibility="gone">
-		<TextView
-			android:text="昵    称:"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:minWidth="25px"
-			android:minHeight="25px"
-			android:id="@+id/textView3" />
-		<EditText
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/NicknameText" />
+			android:orientation="horizontal"
+			android:id="@+id/NicknameLayout"
+			android:visibility="gone">
+		<TextView
+				android:text="昵    称:"
+				android:textAppearance="@android:style/TextAppearance.Material.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:id="@+id/textView3"/>
+		<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/NicknameText" android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 	</LinearLayout>
 	<Button
-		android:text="登录"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/SignInButton"
-		android:textSize="20px"  />
+			android:text="登录"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/SignInButton"
+			android:textSize="24sp" android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 	<Button
-		android:text="注册"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/SignUpButton"
-		android:textSize="20px"
-		android:visibility="gone" />
+			android:text="注册"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/SignUpButton"
+			android:textSize="24sp"
+			android:visibility="gone"/>
 	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/SignUpClickableText"
-		android:text="注册    "
-		android:clickable="true"
-		android:textAlignment="viewEnd"
-		android:textSize="20px"  />
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/SignUpClickableText"
+			android:text="注册    "
+			android:clickable="true"
+			android:textAlignment="viewEnd"
+			android:textSize="18sp"/>
 	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/LoginConsoleText" />
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/LoginConsoleText" android:textSize="14sp"/>
 </LinearLayout>
