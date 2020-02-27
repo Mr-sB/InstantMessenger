@@ -1,7 +1,7 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Widget;
 using IMClient.Tools;
 using IMClient.Views;
 
@@ -33,7 +33,14 @@ namespace IMClient
         
         public void AddToConsole(string text, bool append = true)
         {
-            mCurView.AddToConsole(text, append);
+            try
+            {
+                mCurView.AddToConsole(text, append);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("AddToConsole Exception:" + ex);
+            }
         }
     }
 }

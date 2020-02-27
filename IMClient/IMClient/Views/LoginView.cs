@@ -39,7 +39,6 @@ namespace IMClient.Views
             mSignInButton = FindViewById<Button>(Resource.Id.SignInButton);
             mSignUpButton = FindViewById<Button>(Resource.Id.SignUpButton);
             mSignUpClickableText = FindViewById<TextView>(Resource.Id.SignUpClickableText);
-            mConsoleText = FindViewById<TextView>(Resource.Id.LoginConsoleText);
 
             mSignInButton.Click += delegate
             {
@@ -63,7 +62,6 @@ namespace IMClient.Views
                     .AddOperationCode(OperationCode.Login)
                     .AddSubCode(SubCode.Login_SignIn)
                     .AddParameter(ParameterKeys.LOGIN_SIGN_IN_REQUEST, new SignInRequestModel(mUsernameText.Text, mPasswordText.Text)));
-                mConsoleText.Text = "登录中...";
             };
 
             mSignUpButton.Click += delegate
@@ -89,12 +87,12 @@ namespace IMClient.Views
                     SocketEngine.Instance.Connect();
                     return;
                 }
+                AddToConsole("注册中...", false);
                 SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Login)
                     .AddSubCode(SubCode.Login_SignUp)
                     .AddParameter(ParameterKeys.LOGIN_SIGN_UP_REQUEST,
                         new SignUpRequestModel(mUsernameText.Text, mPasswordText.Text, mNicknameText.Text)));
-                mConsoleText.Text = "注册中...";
             };
 
             mSignUpClickableText.Click += delegate
@@ -136,21 +134,15 @@ namespace IMClient.Views
 
         private void OnSignInSuccess()
         {
-            RunOnUiThread(() =>
-            {
-                mConsoleText.Text = "登录成功!";
-                //切换到聊天View
-                mActivity.ChangeContentView<MessageView>();
-            });
+            AddToConsole("登录成功!", false);
+            //切换到聊天View
+            mActivity.ChangeContentView<MessageView>();
         }
 
         private void OnSignUpSuccess()
         {
-            RunOnUiThread(() =>
-            {
-                ChangeLoginViewState(true);
-                mConsoleText.Text = "注册成功!";
-            });
+            AddToConsole("注册成功!", false);
+            ChangeLoginViewState(true);
         }
     }
 }

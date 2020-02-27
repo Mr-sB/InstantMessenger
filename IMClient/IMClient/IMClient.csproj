@@ -80,6 +80,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Messenger.cs" />
     <Compile Include="Controllers\UnknownController.cs" />
+    <Compile Include="DB\DBHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="ClientListener.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

@@ -29,8 +29,7 @@ namespace IMClient
                     try
                     {
                         //创建peer
-                        if(mPeer == null)
-                            mPeer = new ESocketPeer(ClientListener.Instance);
+                        if(mPeer == null) mPeer = new ESocketPeer(ClientListener.Instance);
                         //连接
                         mPeer.Connect("47.98.34.239", 5000);
                         mConnecting = false;

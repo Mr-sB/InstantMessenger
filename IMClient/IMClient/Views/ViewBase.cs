@@ -1,5 +1,4 @@
 using System;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
@@ -8,7 +7,7 @@ namespace IMClient.Views
     public abstract class ViewBase
     {
         protected MainActivity mActivity;
-        protected TextView mConsoleText;
+        private TextView mConsoleText;
 
         public abstract void OnInit();
         public abstract void OnViewChanged();
@@ -16,7 +15,7 @@ namespace IMClient.Views
         public void Init(MainActivity activity)
         {
             mActivity = activity;
-            OnInit();
+            RunOnUiThread(OnInit);
         }
 
         protected virtual void SetContentView(int id)
@@ -34,7 +33,7 @@ namespace IMClient.Views
         {
             RunOnUiThread(() =>
             {
-                mConsoleText.Text = append ? mConsoleText.Text + text + "\n" : text;
+                mConsoleText.Text = (append ? mConsoleText.Text + text : text)  + "\n";
             });
         }
 
