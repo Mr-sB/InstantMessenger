@@ -1,6 +1,6 @@
 namespace IMClient.Tools
 {
-    public class Singtone<T> where T : Singtone<T>, new()
+    public class Singleton<T> where T : Singleton<T>, new()
     {
         private static readonly object mLockObj = new object();
         private static T mInstance;

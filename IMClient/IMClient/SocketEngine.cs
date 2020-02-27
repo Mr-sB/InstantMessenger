@@ -7,7 +7,7 @@ using IMClient.Tools;
 
 namespace IMClient
 {
-    public class SocketEngine : Singtone<SocketEngine>
+    public class SocketEngine : Singleton<SocketEngine>
     {
         private ESocketPeer mPeer;
         public ESocketPeer Peer => mPeer;
@@ -30,7 +30,7 @@ namespace IMClient
                     {
                         //创建peer
                         if(mPeer == null)
-                            mPeer = new ESocketPeer(new ClientListener());
+                            mPeer = new ESocketPeer(ClientListener.Instance);
                         //连接
                         mPeer.Connect("47.98.34.239", 5000);
                         mConnecting = false;

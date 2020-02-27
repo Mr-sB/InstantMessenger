@@ -85,7 +85,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketEngine.cs" />
-    <Compile Include="Tools\Singtone.cs" />
+    <Compile Include="Tools\Singleton.cs" />
     <Compile Include="Tools\ToastUtil.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MessageView.cs" />

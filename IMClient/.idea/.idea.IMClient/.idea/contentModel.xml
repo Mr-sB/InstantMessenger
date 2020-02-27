@@ -84,7 +84,7 @@
         </e>
         <e p="SocketEngine.cs" t="Include" />
         <e p="Tools" t="Include">
-          <e p="Singtone.cs" t="Include" />
+          <e p="Singleton.cs" t="Include" />
           <e p="ToastUtil.cs" t="Include" />
         </e>
         <e p="Views" t="Include">

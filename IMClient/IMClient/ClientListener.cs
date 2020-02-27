@@ -6,10 +6,11 @@ using IMCommon.Tools;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using IMClient.Tools;
 
 namespace IMClient
 {
-    public class ClientListener : IPeerListener
+    public class ClientListener : Singleton<ClientListener>, IPeerListener
     {
         private Dictionary<OperationCode, ControllerBase> mControllers;
         
