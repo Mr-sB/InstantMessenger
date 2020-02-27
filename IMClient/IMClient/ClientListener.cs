@@ -1,6 +1,5 @@
 ﻿using ESocket.Client;
 using ESocket.Common;
-using ESocket.Common.Tools;
 using IMClient.Controllers;
 using IMCommon;
 using IMCommon.Tools;
@@ -13,18 +12,8 @@ namespace IMClient
     public class ClientListener : IPeerListener
     {
         private Dictionary<OperationCode, ControllerBase> mControllers;
-        private static ClientListener mInstance;
-        public static ClientListener Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                    mInstance = new ClientListener();
-                return mInstance;
-            }
-        }
-
-        private ClientListener()
+        
+        public ClientListener()
         {
             InitControllers();
         }

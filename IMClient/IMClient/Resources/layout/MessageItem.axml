@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingLeft="10px" android:paddingTop="10px"
+        android:paddingRight="10px" android:paddingBottom="10px" android:paddingStart="10px" android:paddingEnd="10px">
+    <TextView
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MessageItemName"
+            android:textSize="24sp"/>
+    <TextView
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MessageItemContent"
+            android:textSize="18sp"/>
+</LinearLayout>

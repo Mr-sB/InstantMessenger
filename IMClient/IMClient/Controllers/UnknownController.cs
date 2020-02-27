@@ -1,16 +1,17 @@
 ﻿using ESocket.Common;
 using IMCommon;
 using System;
+using IMClient.Tools;
 
 namespace IMClient.Controllers
 {
-    public class UnknowController : ControllerBase
+    public class UnknownController : ControllerBase
     {
         public override OperationCode OperationCode => OperationCode.Unknow;
 
         public override void OnOperationResponse(OperationResponse response)
         {
-            Console.WriteLine(response.ReturnCode);
+            (OperationCode.ToString() + response.ReturnCode).ToastOnSubThread();
         }
     }
 }

@@ -15,14 +15,12 @@
 				android:textAppearance="@android:style/TextAppearance.Material.Large"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:id="@+id/textView1"/>
+				android:id="@+id/textView1" android:textSize="18sp"/>
 		<EditText
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/UsernameText"
-				android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+				android:textAppearance="@android:style/TextAppearance.Material.Large" android:textSize="18sp"/>
 	</LinearLayout>
 	<LinearLayout
 			android:layout_width="match_parent"
@@ -33,16 +31,14 @@
 				android:textAppearance="@android:style/TextAppearance.Material.Large"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:id="@+id/textView2"/>
+				android:id="@+id/textView2" android:textSize="18sp"/>
 		<EditText
 				android:inputType="textPassword"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/PasswordText"
 				android:textAppearance="@android:style/TextAppearance.Material.Large"
-				android:password="true"/>
+				android:password="true" android:textSize="18sp"/>
 	</LinearLayout>
 	<LinearLayout
 			android:layout_width="match_parent"
@@ -55,8 +51,6 @@
 				android:textAppearance="@android:style/TextAppearance.Material.Large"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:minWidth="25px"
-				android:minHeight="25px"
 				android:id="@+id/textView3"/>
 		<EditText
 				android:layout_width="match_parent"
@@ -83,9 +77,9 @@
 			android:text="注册"
 			android:clickable="true"
 			android:textAlignment="viewEnd"
-			android:textSize="18sp" android:layout_gravity="right" android:paddingRight="5px"/>
+			android:textSize="18sp" android:layout_gravity="right" android:paddingRight="5sp"/>
 	<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/LoginConsoleText" android:textSize="14sp"/>
+			android:textSize="14sp" android:id="@+id/ConsoleText"/>
 </LinearLayout>
