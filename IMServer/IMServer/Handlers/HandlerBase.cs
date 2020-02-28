@@ -10,7 +10,7 @@ namespace IMServer.Handlers
     public abstract class HandlerBase
     {
         public abstract OperationCode OperationCode { get; }
-        protected abstract ILog mILog { get; }
+        protected abstract ILog mLogger { get; }
         public abstract void OnOperationRequest(IMClientPeer peer, OperationRequest request);
         public virtual void OnOperationResponse(IMClientPeer peer, OperationResponse response) { }
 
@@ -28,7 +28,7 @@ namespace IMServer.Handlers
             parameters = InitParameters(subCode);
             if (!request.Parameters.TryGetParameter(key, out model) || model == null)
             {
-                mILog.ErrorFormat("消息错误！客户端{0},OperationCode:{1},SubCode:{2},ParameterKeys:{3}", peer, OperationCode, subCode, key);
+                mLogger.ErrorFormat("消息错误！客户端{0},OperationCode:{1},SubCode:{2},ParameterKeys:{3}", peer, OperationCode, subCode, key);
                 peer.SendResponse(ReturnCode.ParameterException, parameters.AddParameter(ParameterKeys.PARAMETER_KEY, key));
                 return false;
             }

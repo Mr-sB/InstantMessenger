@@ -14,21 +14,14 @@ namespace IMServer.Handlers
     public class LoginHandler : HandlerBase
     {
         public override OperationCode OperationCode => OperationCode.Login;
-        protected override ILog mILog
-        {
-            get
-            {
-                if (mLog == null) mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-                return mLog;
-            }
-        }
+        protected override ILog mLogger => mLog ?? (mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType));
         private ILog mLog;
 
         public override void OnOperationRequest(IMClientPeer peer, OperationRequest request)
         {
             if(!request.Parameters.TryGetSubCode(out var subCode))
             {
-                mLog.ErrorFormat("消息错误！客户端{0},OperationCode:{1},获取SubCode失败", peer, OperationCode);
+                mLogger.ErrorFormat("消息错误！客户端{0},OperationCode:{1},获取SubCode失败", peer, OperationCode);
                 peer.SendResponse(ReturnCode.SubCodeException,
                     ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                 return;
@@ -48,7 +41,7 @@ namespace IMServer.Handlers
                     OnForgetPassword(peer, request);
                     break;
                 default:
-                    mLog.ErrorFormat("消息错误！客户端{0},SubCode未知:{1}", peer, subCode);
+                    mLogger.ErrorFormat("消息错误！客户端{0},SubCode未知:{1}", peer, subCode);
                     peer.SendResponse(ReturnCode.SubCodeException,
                         ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                     break;
@@ -79,7 +72,7 @@ namespace IMServer.Handlers
                 SignUpTime = TimeUtil.GetCurrentUtcTime().GetTotalMilliseconds()
             });
             //记录事件
-            mLog.InfoFormat("用户注册:{0}", model.Username);
+            mLogger.InfoFormat("用户注册:{0}", model.Username);
             peer.SendResponse(ReturnCode.Success, parameters);
         }
 
@@ -103,7 +96,7 @@ namespace IMServer.Handlers
                 return;
             }
             //记录事件
-            mLog.InfoFormat("用户登录:{0}", model.Username);
+            mLogger.InfoFormat("用户登录:{0}", model.Username);
             //TODO登陆成功发送一些用户基本信息 好友列表之类的
             peer.SendResponse(ReturnCode.Success, parameters);
             //服务器记录下用户登录成功，如果在这之前有别的客户端登陆了这个账号，挤掉
@@ -141,7 +134,7 @@ namespace IMServer.Handlers
             dbUser.Salt = salt;
             UserManager.UpdateUser(dbUser);
             //记录事件
-            mLog.InfoFormat("用户更改密码:{0}", peer.LoginUser);
+            mLogger.InfoFormat("用户更改密码:{0}", peer.LoginUser);
             peer.SendResponse(ReturnCode.Success, parameters);
         }
 

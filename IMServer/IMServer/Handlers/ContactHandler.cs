@@ -14,21 +14,14 @@ namespace IMServer.Handlers
     public class ContactHandler : HandlerBase
     {
         public override OperationCode OperationCode => OperationCode.Contact;
-        protected override ILog mILog
-        {
-            get
-            {
-                if (mLog == null) mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-                return mLog;
-            }
-        }
+        protected override ILog mLogger => mLog ?? (mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType));
         private ILog mLog;
 
         public override void OnOperationRequest(IMClientPeer peer, OperationRequest request)
         {
             if (!request.Parameters.TryGetSubCode(out var subCode))
             {
-                mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
+                mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
                 peer.SendResponse(ReturnCode.SubCodeException,
                     ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                 return;
@@ -48,7 +41,7 @@ namespace IMServer.Handlers
                     OnDeleteRequest(peer, request);
                     break;
                 default:
-                    mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},SubCode未知:{2}", peer, peer.LoginUser, subCode);
+                    mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},SubCode未知:{2}", peer, peer.LoginUser, subCode);
                     peer.SendResponse(ReturnCode.SubCodeException,
                         ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                     break;
@@ -59,14 +52,14 @@ namespace IMServer.Handlers
         {
             if (!response.Parameters.TryGetSubCode(out var subCode))
             {
-                mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
+                mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
                 peer.SendResponse(ReturnCode.SubCodeException,
                     ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                 return;
             }
             if ((ReturnCode)response.ReturnCode != ReturnCode.Success)
             {
-                mLog.ErrorFormat("请求失败！客户端:{0},用户名:{1},SubCode:{2},ReturnCode:{3}", peer, peer.LoginUser, subCode, (ReturnCode)response.ReturnCode);
+                mLogger.ErrorFormat("请求失败！客户端:{0},用户名:{1},SubCode:{2},ReturnCode:{3}", peer, peer.LoginUser, subCode, (ReturnCode)response.ReturnCode);
             }
             switch (subCode)
             {
@@ -74,7 +67,7 @@ namespace IMServer.Handlers
                     OnAddResponse(peer, response);
                     break;
                 default:
-                    mLog.ErrorFormat("SubCode错误！客户端:{0},用户名:{1},SubCode:{2}", peer, peer.LoginUser, subCode);
+                    mLogger.ErrorFormat("SubCode错误！客户端:{0},用户名:{1},SubCode:{2}", peer, peer.LoginUser, subCode);
                     peer.SendResponse(ReturnCode.SubCodeException,
                         ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                     break;

@@ -14,21 +14,14 @@ namespace IMServer.Handlers
     public class ChatHandler : HandlerBase
     {
         public override OperationCode OperationCode => OperationCode.Chat;
-        protected override ILog mILog
-        {
-            get
-            {
-                if (mLog == null) mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-                return mLog;
-            }
-        }
+        protected override ILog mLogger => mLog ?? (mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType));
         private ILog mLog;
 
         public override void OnOperationRequest(IMClientPeer peer, OperationRequest request)
         {
             if (!request.Parameters.TryGetSubCode(out var subCode))
             {
-                mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
+                mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},OperationCode:{2},获取SubCode失败", peer, peer.LoginUser, OperationCode);
                 peer.SendResponse(ReturnCode.SubCodeException,
                     ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                 return;
@@ -42,7 +35,7 @@ namespace IMServer.Handlers
                     OnMessage(peer, request);
                     break;
                 default:
-                    mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},SubCode未知:{2}", peer, peer.LoginUser, subCode);
+                    mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},SubCode未知:{2}", peer, peer.LoginUser, subCode);
                     peer.SendResponse(ReturnCode.SubCodeException,
                         ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                     break;
@@ -101,7 +94,7 @@ namespace IMServer.Handlers
                     OnFile(peer, parameters, chat);
                     break;
                 default:
-                    mLog.ErrorFormat("消息错误！客户端:{0},用户名:{1},mSubCode:{2},ChatMessageCode{3}", peer, peer.LoginUser, subCode, model.MessageType);
+                    mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},mSubCode:{2},ChatMessageCode{3}", peer, peer.LoginUser, subCode, model.MessageType);
                     peer.SendResponse(ReturnCode.ChatMessageCodeException,
                         ESocketParameterTool.NewParameters.AddOperationCode(OperationCode));
                     break;
@@ -137,7 +130,7 @@ namespace IMServer.Handlers
             var user = UserManager.GetUser(model.ReceiveUsername);
             if (user == null)
             {
-                mLog.ErrorFormat("消息错误UsernameDoesNotExist！客户端:{0},用户名:{1},SubCode:{2},ReceiveUsername:{3}", peer, peer.LoginUser, subCode, model.ReceiveUsername);
+                mLogger.ErrorFormat("消息错误UsernameDoesNotExist！客户端:{0},用户名:{1},SubCode:{2},ReceiveUsername:{3}", peer, peer.LoginUser, subCode, model.ReceiveUsername);
                 peer.SendResponse(ReturnCode.UsernameDoesNotExist, parameters);
                 return false;
             }
