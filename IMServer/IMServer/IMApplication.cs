@@ -78,7 +78,7 @@ namespace IMServer
                 //重复登录
                 if (oldPeer == peer) return;
                 //旧的挤掉线
-                mLogger.InfoFormat("挤掉线。旧客户端:{0},新客户端:{1},用户名:{2}", oldPeer, peer, peer.LoginUser);
+                mLogger.InfoFormat("挤掉线。旧客户端:{0},新客户端:{1},用户名:{2}", oldPeer, peer, user.Username);
                 oldPeer.Disconnect();
                 mLoginUsers[user.Username] = peer;
             }
@@ -108,15 +108,12 @@ namespace IMServer
             {
                 string relativePath = "..//" + mConfig.ApplicationConfig.BaseDirectory;
                 string configPath = Path.Combine(relativePath, CONFIG_FILE);
-                string config = null;
+                string config;
                 //初始化Log4Net.config文件内容
                 using (StreamReader streamReader = new StreamReader(configPath))
                 {
                     config = streamReader.ReadToEnd();
-                    if (config.Contains(RELATIVE_PATH_HOLDER))
-                        config = config.Replace(RELATIVE_PATH_HOLDER, relativePath);
-                    else
-                        config = null;
+                    config = config.Contains(RELATIVE_PATH_HOLDER) ? config.Replace(RELATIVE_PATH_HOLDER, relativePath) : null;
                 }
                 if (!string.IsNullOrEmpty(config))
                     using (StreamWriter streamWriter = new StreamWriter(configPath))

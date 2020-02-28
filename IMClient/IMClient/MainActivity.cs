@@ -24,6 +24,11 @@ namespace IMClient
             ChangeContentView<LoginView>();
         }
 
+        protected override void OnDestroy()
+        {
+            SocketEngine.Instance.Disconnect();
+        }
+
         public void ChangeContentView<T>() where T : ViewBase, new()
         {
             mCurView?.OnViewChanged();

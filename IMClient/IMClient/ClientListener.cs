@@ -13,7 +13,7 @@ namespace IMClient
     public class ClientListener : Singleton<ClientListener>, IPeerListener
     {
         private Dictionary<OperationCode, ControllerBase> mControllers;
-        
+        public event Action<ConnectCode> OnSocketConnectStateChanged;
         public ClientListener()
         {
             InitControllers();
@@ -50,6 +50,7 @@ namespace IMClient
         public void OnConnectStateChanged(ConnectCode connectCode)
         {
             MainActivity.Instance.AddToConsole("OnConnectStateChanged:" + connectCode);
+            OnSocketConnectStateChanged?.Invoke(connectCode);
         }
 
         public void OnOperationRequest(OperationRequest request)

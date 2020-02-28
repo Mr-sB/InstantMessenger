@@ -18,6 +18,11 @@ namespace IMClient
 
         private bool mConnecting;
 
+        public SocketEngine()
+        {
+            ClientListener.Instance.OnSocketConnectStateChanged += OnSocketConnectStateChanged;
+        }
+        
         public void Connect()
         {
             if (mConnecting || ConnectCode == ConnectCode.Connect) return;
@@ -32,7 +37,6 @@ namespace IMClient
                         if(mPeer == null) mPeer = new ESocketPeer(ClientListener.Instance);
                         //连接
                         mPeer.Connect("47.98.34.239", 5000);
-                        mConnecting = false;
                     }
                     catch (SocketException sex)
                     {
@@ -51,6 +55,17 @@ namespace IMClient
                 mConnecting = false;
                 MainActivity.Instance.AddToConsole("Thread ExceptionType:" + ex.GetType());
             }
+        }
+
+        public void Disconnect()
+        {
+            if (mConnecting || ConnectCode == ConnectCode.Disconnect) return;
+            Peer.Disconnect();
+        }
+
+        private void OnSocketConnectStateChanged(ConnectCode connectCode)
+        {
+            mConnecting = false;
         }
     }
 }
