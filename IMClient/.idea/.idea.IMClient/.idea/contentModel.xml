@@ -16,6 +16,9 @@
     <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_IMClient.1670917815.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="IMClient" t="IncludeRecursive">
+        <e p="Activities" t="Include">
+          <e p="MainActivity.cs" t="Include" />
+        </e>
         <e p="Adaptors" t="Include">
           <e p="MessageAdapter.cs" t="Include" />
           <e p="MessageItem.cs" t="Include" />
@@ -24,15 +27,16 @@
           <e p="AboutAssets.txt" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
-        <e p="ClientListener.cs" t="Include" />
         <e p="Controllers" t="Include">
           <e p="ControllerBase.cs" t="Include" />
           <e p="LoginController.cs" t="Include" />
           <e p="Messenger.cs" t="Include" />
           <e p="UnknownController.cs" t="Include" />
         </e>
+        <e p="DB" t="Include">
+          <e p="DBHelper.cs" t="Include" />
+        </e>
         <e p="IMClient.csproj" t="IncludeRecursive" />
-        <e p="MainActivity.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
           <e p="AndroidManifest.xml" t="Include" />
@@ -82,7 +86,10 @@
             <e p="styles.xml" t="Include" />
           </e>
         </e>
-        <e p="SocketEngine.cs" t="Include" />
+        <e p="Socket" t="Include">
+          <e p="ClientListener.cs" t="Include" />
+          <e p="SocketEngine.cs" t="Include" />
+        </e>
         <e p="Tools" t="Include">
           <e p="Singleton.cs" t="Include" />
           <e p="ToastUtil.cs" t="Include" />

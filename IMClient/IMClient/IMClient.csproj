@@ -74,6 +74,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Adaptors\MessageAdapter.cs" />
     <Compile Include="Adaptors\MessageItem.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -81,11 +82,10 @@
     <Compile Include="Controllers\Messenger.cs" />
     <Compile Include="Controllers\UnknownController.cs" />
     <Compile Include="DB\DBHelper.cs" />
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="ClientListener.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SocketEngine.cs" />
+    <Compile Include="Socket\ClientListener.cs" />
+    <Compile Include="Socket\SocketEngine.cs" />
     <Compile Include="Tools\Singleton.cs" />
     <Compile Include="Tools\ToastUtil.cs" />
     <Compile Include="Views\LoginView.cs" />

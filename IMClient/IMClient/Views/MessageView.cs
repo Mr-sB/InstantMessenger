@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Android.Support.V7.App;
 using Android.Widget;
 using IMClient.Adaptors;
 using IMClient.Controllers;
@@ -9,7 +8,7 @@ namespace IMClient.Views
 {
     public class MessageView : ViewBase
     {
-        public override void OnInit()
+        protected override void OnInit()
         {
             SetContentView(Resource.Layout.Message);
             Init();

@@ -1,6 +1,7 @@
 using System;
 using Android.Views;
 using Android.Widget;
+using IMClient.Activities;
 
 namespace IMClient.Views
 {
@@ -9,8 +10,8 @@ namespace IMClient.Views
         protected MainActivity mActivity;
         private TextView mConsoleText;
 
-        public abstract void OnInit();
-        public abstract void OnViewChanged();
+        protected abstract void OnInit();
+        public virtual void OnViewChanged(){}
 
         public void Init(MainActivity activity)
         {

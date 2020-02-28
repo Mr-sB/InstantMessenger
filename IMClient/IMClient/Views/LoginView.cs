@@ -4,6 +4,7 @@ using Android.Widget;
 using ESocket.Common;
 using ESocket.Common.Tools;
 using IMClient.Controllers;
+using IMClient.Socket;
 using IMClient.Tools;
 using IMCommon;
 using IMCommon.Tools;
@@ -22,7 +23,7 @@ namespace IMClient.Views
         private TextView mSignUpClickableText;
         private bool mIsSignIn = true;
 
-        public override void OnInit()
+        protected override void OnInit()
         {
             SetContentView(Resource.Layout.Login);
             Init();
@@ -31,7 +32,6 @@ namespace IMClient.Views
         private void Init()
         {
             Messenger.OnSuccessEvent += OnSuccessEvent;
-            // Get our UI controls from the loaded layout
             mUsernameText = FindViewById<EditText>(Resource.Id.UsernameText);
             mPasswordText = FindViewById<EditText>(Resource.Id.PasswordText);
             mNicknameText = FindViewById<EditText>(Resource.Id.NicknameText);
@@ -58,6 +58,7 @@ namespace IMClient.Views
                     SocketEngine.Instance.Connect();
                     return;
                 }
+                AddToConsole("登录中...", false);
                 SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Login)
                     .AddSubCode(SubCode.Login_SignIn)

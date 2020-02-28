@@ -1,14 +1,15 @@
-﻿using ESocket.Client;
-using ESocket.Common;
-using IMClient.Controllers;
-using IMCommon;
-using IMCommon.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using ESocket.Client;
+using ESocket.Common;
+using IMClient.Activities;
+using IMClient.Controllers;
 using IMClient.Tools;
+using IMCommon;
+using IMCommon.Tools;
 
-namespace IMClient
+namespace IMClient.Socket
 {
     public class ClientListener : Singleton<ClientListener>, IPeerListener
     {

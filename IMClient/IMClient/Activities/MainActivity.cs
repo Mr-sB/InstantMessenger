@@ -2,10 +2,11 @@
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
+using IMClient.Socket;
 using IMClient.Tools;
 using IMClient.Views;
 
-namespace IMClient
+namespace IMClient.Activities
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity

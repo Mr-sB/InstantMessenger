@@ -3,9 +3,10 @@ using System.Net.Sockets;
 using System.Threading;
 using ESocket.Client;
 using ESocket.Common;
+using IMClient.Activities;
 using IMClient.Tools;
 
-namespace IMClient
+namespace IMClient.Socket
 {
     public class SocketEngine : Singleton<SocketEngine>
     {
