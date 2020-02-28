@@ -1,4 +1,5 @@
-﻿using ESocket.Common.Tools;
+﻿using System;
+using ESocket.Common.Tools;
 using IMCommon.DB.Models;
 using System.Collections.Generic;
 
@@ -10,9 +11,9 @@ namespace IMServer.DB.Managers
         {
             return NHibernateHelper.OpenDB(session =>
             {
-                var now = TimeUtil.GetCurrentUtcTime();
-                var maxTime = now.AddDays(-minDay);
-                var minTime = now.AddDays(-maxDay);
+                DateTime now = TimeUtil.GetCurrentUtcTime();
+                long maxTime = now.AddDays(-minDay).GetTotalMilliseconds();
+                long minTime = now.AddDays(-maxDay).GetTotalMilliseconds();
                 var res = session.QueryOver<Chat>().Where(
                     x => x.SendUsername == sendUsername
                     && x.ReceiveUsername == recUsername

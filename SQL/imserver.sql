@@ -1,5 +1,5 @@
 ﻿# Host: 127.0.0.1  (Version 5.6.36)
-# Date: 2020-02-28 13:13:58
+# Date: 2020-02-28 15:41:11
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
 
@@ -14,7 +14,7 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL DEFAULT '',
   `salt` varchar(40) NOT NULL DEFAULT '',
   `nickname` varchar(20) NOT NULL DEFAULT '',
-  `signuptime` datetime(2) NOT NULL DEFAULT '0000-00-00 00:00:00.00',
+  `signuptime` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户信息';
@@ -30,7 +30,7 @@ CREATE TABLE `chat` (
   `receiveusername` varchar(50) NOT NULL DEFAULT '',
   `messagetype` int(11) NOT NULL DEFAULT '0',
   `message` varchar(1024) NOT NULL DEFAULT '',
-  `time` datetime(2) NOT NULL DEFAULT '0000-00-00 00:00:00.00',
+  `time` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `sendusername` (`sendusername`),
   KEY `receiveusername` (`receiveusername`),

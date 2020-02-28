@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using ESocket.Common;
 using ESocket.Common.Tools;
 using IMCommon;
@@ -77,7 +76,7 @@ namespace IMServer.Handlers
                 //盐(随机字符串)
                 Salt = salt,
                 //注册时间
-                SignUpTime = TimeUtil.GetCurrentUtcTime()
+                SignUpTime = TimeUtil.GetCurrentUtcTime().GetTotalMilliseconds()
             });
             //记录事件
             mLog.InfoFormat("用户注册:{0}", model.Username);

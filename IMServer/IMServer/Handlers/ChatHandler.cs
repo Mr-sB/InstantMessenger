@@ -81,7 +81,7 @@ namespace IMServer.Handlers
                 ReceiveUsername = model.ReceiveUsername,
                 MessageType = (int)model.MessageType,
                 Message = model.Message,
-                Time = TimeUtil.GetCurrentUtcTime()
+                Time = TimeUtil.GetCurrentUtcTime().GetTotalMilliseconds()
             };
             switch (model.MessageType)
             {

@@ -32,9 +32,9 @@ namespace IMCommon.DB.Models
         /// </summary>
         public virtual string Message { get; set; }
         /// <summary>
-        /// 消息时间
+        /// 消息时间(毫秒)
         /// </summary>
-        public virtual DateTime Time { get; set; }
+        public virtual long Time { get; set; }
 
         public virtual MessageCode GetMessageCode()
         {

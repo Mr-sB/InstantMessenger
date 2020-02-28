@@ -25,8 +25,8 @@ namespace IMCommon.DB.Models
         /// </summary>
         public virtual string Nickname { get; set; }
         /// <summary>
-        /// 注册时间
+        /// 注册时间(毫秒)
         /// </summary>
-        public virtual DateTime SignUpTime { get; set; }
+        public virtual long SignUpTime { get; set; }
     }
 }
