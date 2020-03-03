@@ -103,7 +103,7 @@
   <ItemGroup>
     <Compile Include="DB\Managers\ChatManager.cs" />
     <Compile Include="DB\Managers\ContactManager.cs" />
-    <Compile Include="DB\Managers\ContactRequestManager.cs" />
+    <Compile Include="DB\Managers\ContactAddRequestManager.cs" />
     <Compile Include="DB\Managers\UserManager.cs" />
     <Compile Include="DB\Mappings\ChatMap.cs" />
     <Compile Include="DB\Mappings\ContactRequestMap.cs" />

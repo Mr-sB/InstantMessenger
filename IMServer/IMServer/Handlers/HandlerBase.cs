@@ -22,11 +22,11 @@ namespace IMServer.Handlers
             return parameters;
         }
 
-        protected bool TryInitResponse<T>(SubCode subCode, IMClientPeer peer, OperationRequest request,
+        protected bool TryInitResponse<T>(SubCode subCode, IMClientPeer peer, OperationBase operation,
             out Dictionary<string, object> parameters, string key, out T model)
         {
             parameters = InitParameters(subCode);
-            if (!request.Parameters.TryGetParameter(key, out model) || model == null)
+            if (!operation.Parameters.TryGetParameter(key, out model) || model == null)
             {
                 mLogger.ErrorFormat("消息错误！客户端{0},OperationCode:{1},SubCode:{2},ParameterKeys:{3}", peer, OperationCode, subCode, key);
                 peer.SendResponse(ReturnCode.ParameterException, parameters.AddParameter(ParameterKeys.PARAMETER_KEY, key));

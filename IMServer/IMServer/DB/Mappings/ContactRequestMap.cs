@@ -3,7 +3,7 @@ using IMCommon.DB.Models;
 
 namespace IMServer.DB.Mappings
 {
-    public class ContactRequestMap : ClassMap<ContactRequest>
+    public class ContactRequestMap : ClassMap<ContactAddRequest>
     {
         public ContactRequestMap()
         {

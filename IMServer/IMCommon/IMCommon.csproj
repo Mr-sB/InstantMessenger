@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="DB\Models\Chat.cs" />
     <Compile Include="DB\Models\Contact.cs" />
-    <Compile Include="DB\Models\ContactRequest.cs" />
+    <Compile Include="DB\Models\ContactAddRequest.cs" />
     <Compile Include="DB\Models\User.cs" />
     <Compile Include="OperationCode.cs" />
     <Compile Include="ParameterKeys.cs" />
@@ -60,10 +60,11 @@
     <Compile Include="TransferModels\Chat\ChatRequestModelBase.cs" />
     <Compile Include="TransferModels\Common\UserListModel.cs" />
     <Compile Include="TransferModels\Common\UserModel.cs" />
+    <Compile Include="TransferModels\Contact\ContactAddClientResponseModel.cs" />
+    <Compile Include="TransferModels\Contact\ContactAddServerResponseModel.cs" />
     <Compile Include="TransferModels\Login\ResetPasswordRequestModel.cs" />
     <Compile Include="TransferModels\Login\SignInRequestModel.cs" />
     <Compile Include="TransferModels\Login\SignUpRequestModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

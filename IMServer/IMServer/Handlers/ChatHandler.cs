@@ -57,8 +57,7 @@ namespace IMServer.Handlers
                 else
                     records.AddRange(tmpRec);
             }
-            if(records != null)
-                records.Sort((left, right) => left.Time.CompareTo(right));
+            records?.Sort((left, right) => left.Time.CompareTo(right));
             //响应
             peer.SendResponse(ReturnCode.Success, parameters.AddParameter(ParameterKeys.CHAT_RECORD_RESPONSE, new ChatRecordResponseModel(records)));
         }
@@ -122,7 +121,7 @@ namespace IMServer.Handlers
             //TODO
         }
 
-        private new bool TryInitResponse<T>(SubCode subCode, IMClientPeer peer, OperationRequest request,
+        private bool TryInitResponse<T>(SubCode subCode, IMClientPeer peer, OperationRequest request,
             out Dictionary<string, object> parameters, string key, out T model) where T : ChatRequestModelBase
         {
             if(!base.TryInitResponse(subCode, peer, request, out parameters, key, out model)) return false;

@@ -8,6 +8,7 @@ using IMServer.DB.Managers;
 using log4net;
 using System.Collections.Generic;
 using System.Reflection;
+using OperationCode = IMCommon.OperationCode;
 
 namespace IMServer.Handlers
 {
@@ -74,7 +75,7 @@ namespace IMServer.Handlers
             }
         }
 
-        public void OnListRequest(IMClientPeer peer, OperationRequest request)
+        private void OnListRequest(IMClientPeer peer, OperationRequest request)
         {
             //DB查询联系人列表
             var contacts = ContactManager.GetContactsByUsername(peer.LoginUser?.Username);
@@ -90,7 +91,7 @@ namespace IMServer.Handlers
             peer.SendResponse(ReturnCode.Success, parameters);
         }
 
-        public void OnSearchRequest(IMClientPeer peer, OperationRequest request)
+        private void OnSearchRequest(IMClientPeer peer, OperationRequest request)
         {
             SubCode subCode = SubCode.Contact_Search;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
@@ -103,16 +104,34 @@ namespace IMServer.Handlers
             peer.SendResponse(ReturnCode.Success, parameters);
         }
 
-        public void OnAddRequest(IMClientPeer peer, OperationRequest request)
+        private void OnAddRequest(IMClientPeer peer, OperationRequest request)
         {
             SubCode subCode = SubCode.Contact_Add;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.USERNAME, out string contactUsername)) return;
-            //DB添加请求
-            ContactRequestManager.AddContactRequest(new ContactRequest {
-                RequestUser = peer.LoginUser,
-                ContactUsername = contactUsername
-            });
+            
+            var contactAddRequest = ContactAddRequestManager.GetContactAddRequest(peer.LoginUser?.Username, contactUsername);
+            if (contactAddRequest != null)
+            {
+                const int wait = (int) ContactAddRequest.ContactAddResponseCode.Waite;
+                if (contactAddRequest.ResponseCode != wait)
+                {
+                    //DB更新
+                    contactAddRequest.ResponseCode = wait;
+                    ContactAddRequestManager.UpdateContactAddRequest(contactAddRequest);
+                }
+            }
+            else
+            {
+                //DB添加请求
+                ContactAddRequestManager.AddContactAddRequest(new ContactAddRequest
+                {
+                    RequestUser = peer.LoginUser,
+                    ContactUsername = contactUsername,
+                    ResponseCode = (int) ContactAddRequest.ContactAddResponseCode.Waite
+                });
+            }
+
             //回应
             peer.SendResponse(ReturnCode.Success, parameters);
             //如果对方在线，直接发送请求
@@ -125,20 +144,72 @@ namespace IMServer.Handlers
             }
         }
 
-        public void OnDeleteRequest(IMClientPeer peer, OperationRequest request)
+        private void OnDeleteRequest(IMClientPeer peer, OperationRequest request)
         {
             SubCode subCode = SubCode.Contact_Delete;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.USERNAME, out string contactUsername)) return;
             //DB删除
             ContactManager.DeleteContact(peer.LoginUser?.Username, contactUsername);
+            ContactManager.DeleteContact(contactUsername, peer.LoginUser?.Username);
             //回应
-            peer.SendResponse(ReturnCode.Success, parameters);
+            peer.SendResponse(ReturnCode.Success, parameters.AddParameter(ParameterKeys.USERNAME, contactUsername));
+            //如果请求在线，发送响应
+            if (IMApplication.Instance.TryGetPeerByUsername(contactUsername, out var responsePeer))
+            {
+                parameters[ParameterKeys.USERNAME] = peer.LoginUser.Username;
+                responsePeer.SendResponse(ReturnCode.Success, parameters);
+            }
         }
 
-        public void OnAddResponse(IMClientPeer peer, OperationResponse response)
+        private void OnAddResponse(IMClientPeer peer, OperationResponse response)
         {
-            
+            SubCode subCode = SubCode.Contact_Add;
+            if (!TryInitResponse(subCode, peer, response, out var parameters,
+                ParameterKeys.CONTACT_ADD_CLIENT_RESPONSE, out ContactAddClientResponseModel model)) return;
+            if (peer.LoginUser == null)
+            {
+                mLogger.ErrorFormat("响应失败!客户端:{0}未登陆！", peer);
+                return;
+            }
+            var contactAddRequest = ContactAddRequestManager.GetContactAddRequest(model.RequestUsername, peer.LoginUser.Username);
+            if (contactAddRequest == null)
+            {
+                peer.SendResponse(ReturnCode.UsernameDoesNotExist, parameters);
+                return;
+            }
+
+            var responseCode = model.Accept
+                ? ContactAddRequest.ContactAddResponseCode.Accept
+                : ContactAddRequest.ContactAddResponseCode.Refuse;
+            //DB更新
+            contactAddRequest.ResponseCode = (int)responseCode;
+            ContactAddRequestManager.UpdateContactAddRequest(contactAddRequest);
+            var requestUser = UserManager.GetUser(model.RequestUsername);
+            if (model.Accept)
+            {
+                //DB添加
+                ContactManager.AddContact(new Contact
+                {
+                    Username = model.RequestUsername,
+                    ContactUser = peer.LoginUser
+                });
+                ContactManager.AddContact(new Contact
+                {
+                    Username = peer.LoginUser.Username,
+                    ContactUser = requestUser
+                });
+            }
+            //响应
+            ContactAddServerResponseModel responseModel1 = new ContactAddServerResponseModel(responseCode, new UserModel(requestUser));
+            peer.SendResponse(ReturnCode.Success, parameters.AddParameter(ParameterKeys.CONTACT_ADD_SERVER_RESPONSE, responseModel1));
+            //如果请求在线，发送响应
+            if (IMApplication.Instance.TryGetPeerByUsername(model.RequestUsername, out var requestPeer))
+            {
+                ContactAddServerResponseModel responseModel2 = new ContactAddServerResponseModel(responseCode, new UserModel(peer.LoginUser));
+                parameters[ParameterKeys.CONTACT_ADD_SERVER_RESPONSE] = responseModel2;
+                requestPeer.SendResponse(ReturnCode.Success, parameters);
+            }
         }
     }
 }

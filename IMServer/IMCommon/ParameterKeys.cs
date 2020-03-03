@@ -22,6 +22,8 @@
         public const string CHAT_RECORD_RESPONSE = "CHAT_RECORD_RESPONSE";
         public const string CHAT_MESSAGE_REQUEST = "CHAT_MESSAGE_REQUEST";
         public const string CHAT_INFO = "CHAT_INFO";
-
+        //Contact
+        public const string CONTACT_ADD_CLIENT_RESPONSE = "CONTACT_ADD_CLIENT_RESPONSE";
+        public const string CONTACT_ADD_SERVER_RESPONSE = "CONTACT_ADD_SERVER_RESPONSE";
     }
 }
