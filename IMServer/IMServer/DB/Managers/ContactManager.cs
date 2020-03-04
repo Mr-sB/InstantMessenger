@@ -10,7 +10,7 @@ namespace IMServer.DB.Managers
             return NHibernateHelper.OpenDB(session =>
             {
                 var res = session.QueryOver<Contact>().Where(x => x.Username == username
-                    && x.ContactUser.Username == username);
+                    && x.ContactUsername == contactUsername);
                 var list = res.List();
                 if (list != null && list.Count > 0) return list[0];
                 return null;
@@ -30,7 +30,7 @@ namespace IMServer.DB.Managers
         public static void AddContact(Contact contact)
         {
             //重复添加
-            if (GetContact(contact.Username, contact.ContactUser.Username) != null) return;
+            if (GetContact(contact.Username, contact.ContactUsername) != null) return;
             NHibernateHelper.OpenDB(session =>
             {
                 session.Save(contact);
@@ -42,7 +42,7 @@ namespace IMServer.DB.Managers
             NHibernateHelper.OpenDB(session =>
             {
                 var res = session.QueryOver<Contact>().Where(x => x.Username == username
-                    && x.ContactUser.Username == contactUsername);
+                    && x.ContactUsername == contactUsername);
                 var list = res.List();
                 if (list == null || list.Count <= 0) return;
                 session.Delete(list[0]);

@@ -13,6 +13,7 @@ namespace IMClient.Views
         private void Init()
         {
             FindViewById<Button>(Resource.Id.AddContactButton).Click += delegate { mActivity.ChangeContentView<SearchView>(); };
+            FindViewById<Button>(Resource.Id.NewContactButton).Click += delegate { mActivity.ChangeContentView<NewContactView>(); };
             var messageTabButton = FindViewById<RadioButton>(Resource.Id.MessageTabButton);
             messageTabButton.Selected = false;
             messageTabButton.Click += delegate { mActivity.ChangeContentView<MessageView>(); };

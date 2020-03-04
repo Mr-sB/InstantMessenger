@@ -62,6 +62,7 @@
     <Compile Include="TransferModels\Common\UserModel.cs" />
     <Compile Include="TransferModels\Contact\ContactAddClientResponseModel.cs" />
     <Compile Include="TransferModels\Contact\ContactAddServerResponseModel.cs" />
+    <Compile Include="TransferModels\Contact\ContactAddServerResponseModelList.cs" />
     <Compile Include="TransferModels\Login\ResetPasswordRequestModel.cs" />
     <Compile Include="TransferModels\Login\SignInRequestModel.cs" />
     <Compile Include="TransferModels\Login\SignUpRequestModel.cs" />

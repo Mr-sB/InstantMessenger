@@ -25,5 +25,6 @@
         //Contact
         public const string CONTACT_ADD_CLIENT_RESPONSE = "CONTACT_ADD_CLIENT_RESPONSE";
         public const string CONTACT_ADD_SERVER_RESPONSE = "CONTACT_ADD_SERVER_RESPONSE";
+        public const string CONTACT_ADD_SERVER_RESPONSE_LIST = "CONTACT_ADD_SERVER_RESPONSE_LIST";
     }
 }

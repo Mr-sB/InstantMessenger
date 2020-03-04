@@ -106,7 +106,7 @@ namespace IMServer.Handlers
         //重置密码
         private void OnResetPassword(IMClientPeer peer, OperationRequest request)
         {
-            var subCode = SubCode.Login_ResetPassword;
+            const SubCode subCode = SubCode.Login_ResetPassword;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.LOGIN_RESET_PASSWORD_REQUEST, out ResetPasswordRequestModel model)) return;
             //DB获取用户数据

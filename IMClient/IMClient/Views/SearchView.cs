@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Android.Views;
 using Android.Widget;
 using ESocket.Common;
 using ESocket.Common.Tools;
@@ -15,6 +16,7 @@ namespace IMClient.Views
     public class SearchView : ViewBase
     {
         private ListView mContactListView;
+        private ViewGroup mCurSelectedViewGroup;
         
         protected override void OnInit()
         {
@@ -24,7 +26,7 @@ namespace IMClient.Views
 
         private void Init()
         {
-            Messenger.SuccessOperationResponseEvent += OnSuccessEvent;
+            Messenger.OnSuccessOperationResponseEvent += OnSuccessOperationResponseEvent;
             FindViewById<Button>(Resource.Id.BackButton).Click += delegate { mActivity.ChangeContentView<ContactView>(); };
             var usernameText = FindViewById<TextView>(Resource.Id.UsernameText);
             FindViewById<Button>(Resource.Id.SearchButton).Click += delegate
@@ -47,22 +49,30 @@ namespace IMClient.Views
                     .AddParameter(ParameterKeys.USERNAME, usernameText.Text));
             };
             mContactListView = FindViewById<ListView>(Resource.Id.ContactListView);
+            mContactListView.ItemClick += (sender, args) =>
+            {
+                if(mCurSelectedViewGroup != null)
+                    mCurSelectedViewGroup.Visibility = ViewStates.Gone;
+                mCurSelectedViewGroup = args.View.FindViewById<ViewGroup>(Resource.Id.ContactItemRightLayout);
+                mCurSelectedViewGroup.Visibility = ViewStates.Visible;
+                // AddToConsole(args.View.GetType().ToString() + args.Parent.GetType() + args.Parent.SelectedItemPosition + "  " + args.Id + "  " + args.Position, false);
+            };
         }
         
         public override void OnViewChanged()
         {
-            Messenger.SuccessOperationResponseEvent -= OnSuccessEvent;
+            Messenger.OnSuccessOperationResponseEvent -= OnSuccessOperationResponseEvent;
         }
 
-        private void OnSuccessEvent(OperationCode operationCode, SubCode subCode, OperationResponse response)
+        private void OnSuccessOperationResponseEvent(OperationCode operationCode, SubCode subCode, OperationResponse response)
         {
             if(operationCode != OperationCode.Contact) return;
             switch (subCode)
             {
                 case SubCode.Contact_Search:
+                    AddToConsole("查找成功", false);
                     if (response.Parameters.TryGetParameter(ParameterKeys.USER_MODEL_LIST, out UserListModel model) && model != null)
                     {
-                        AddToConsole("查找成功", false);
                         List<ContactItem> contacts = new List<ContactItem>(model.Users.Count);
                         foreach (var user in model.Users)
                             contacts.Add(new ContactItem(user));
@@ -73,7 +83,7 @@ namespace IMClient.Views
                     }
                     else
                     {
-                        AddToConsole("查找失败", false);
+                        AddToConsole("查无此人", false);
                     }
                     break;
                 //TODO

@@ -4,6 +4,11 @@ using Android.Content;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using ESocket.Common.Tools;
+using IMClient.Activities;
+using IMClient.Socket;
+using IMCommon;
+using IMCommon.Tools;
 
 namespace IMClient.Adaptors
 {
@@ -58,6 +63,16 @@ namespace IMClient.Adaptors
             View view = LayoutInflater.From(Context).Inflate(mResourceId, parent, false);
             //获取实例
             TextView nameView = view.FindViewById<TextView>(Resource.Id.ContactItemName);
+            view.FindViewById<ViewGroup>(Resource.Id.ContactItemRightLayout).Visibility = ViewStates.Gone;
+            view.FindViewById<Button>(Resource.Id.ContactItemAddButton).Click += delegate
+            {
+                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                    .AddOperationCode(OperationCode.Contact)
+                    .AddSubCode(SubCode.Contact_Add)
+                    .AddParameter(ParameterKeys.USERNAME, contact.Username));
+                MainActivity.Instance.AddToConsole("请求添加:" + contact.Username, false);
+            };
+            
             //设置
             nameView.Text = contact.Nickname + $"({contact.Username})";
             return view;

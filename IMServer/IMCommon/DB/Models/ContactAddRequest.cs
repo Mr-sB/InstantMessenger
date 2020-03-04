@@ -16,7 +16,7 @@
         /// <summary>
         /// 请求用户
         /// </summary>
-        public virtual User RequestUser { get; set; }
+        public virtual string RequestUsername { get; set; }
         /// <summary>
         /// 被添加对象用户名
         /// </summary>

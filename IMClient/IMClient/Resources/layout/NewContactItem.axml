@@ -12,17 +12,32 @@
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp" android:id="@+id/ContactItemName"/>
+            android:textSize="24sp" android:id="@+id/NewContactItemName"/>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:gravity="right|center_vertical"
-            android:id="@+id/ContactItemRightLayout"
-            tools:visibility="visible">
+            tools:visibility="visible" android:id="@+id/NewContactItemButtonsLayout">
         <Button
                 android:text="添加"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:textSize="24sp"
-                android:paddingRight="10dp" android:id="@+id/ContactItemAddButton"/>
+                android:paddingRight="10dp" android:id="@+id/NewContactItemAcceptButton"/>
+        <Button
+                android:text="拒绝"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textSize="24sp"
+                android:paddingRight="10dp" android:id="@+id/NewContactItemRefuseButton"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="right|center_vertical"
+            tools:visibility="gone" android:id="@+id/NewContactItemTextLayout">
+        <TextView
+                android:text="已添加"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" android:textSize="24sp" android:id="@+id/NewContactResponseText"/>
     </LinearLayout>
 </LinearLayout>

@@ -44,7 +44,7 @@ namespace IMServer.Handlers
 
         private void OnRecord(IMClientPeer peer, OperationRequest request)
         {
-            var subCode = SubCode.Chat_Record;
+            const SubCode subCode = SubCode.Chat_Record;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.CHAT_RECORD_REQUEST, out ChatRecordRequestModel model)) return;
             //DB查询聊天记录
@@ -64,7 +64,7 @@ namespace IMServer.Handlers
 
         private void OnMessage(IMClientPeer peer, OperationRequest request)
         {
-            var subCode = SubCode.Chat_Message;
+            const SubCode subCode = SubCode.Chat_Message;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.CHAT_MESSAGE_REQUEST, out ChatMessageRequestModel model)) return;
             Chat chat = new Chat

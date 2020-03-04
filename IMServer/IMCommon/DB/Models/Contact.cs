@@ -13,6 +13,6 @@
         /// <summary>
         /// 联系人用户
         /// </summary>
-        public virtual User ContactUser { get; set; }
+        public virtual string ContactUsername { get; set; }
     }
 }

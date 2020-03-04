@@ -30,7 +30,7 @@ namespace IMClient.Views
 
         private void Init()
         {
-            Messenger.OnSuccessNullEvent += OnSuccessEvent;
+            Messenger.OnSuccessNullEvent += OnSuccessNullEvent;
             mUsernameText = FindViewById<EditText>(Resource.Id.UsernameText);
             mPasswordText = FindViewById<EditText>(Resource.Id.PasswordText);
             mNicknameText = FindViewById<EditText>(Resource.Id.NicknameText);
@@ -103,7 +103,7 @@ namespace IMClient.Views
         
         public override void OnViewChanged()
         {
-            Messenger.OnSuccessNullEvent -= OnSuccessEvent;
+            Messenger.OnSuccessNullEvent -= OnSuccessNullEvent;
         }
 
         private void ChangeLoginViewState(bool isSignIn)
@@ -117,7 +117,7 @@ namespace IMClient.Views
             mSignUpClickableText.Text = isSignIn ? "注册" : "登录";
         }
 
-        private void OnSuccessEvent(OperationCode operationCode, SubCode subCode)
+        private void OnSuccessNullEvent(OperationCode operationCode, SubCode subCode)
         {
             if(operationCode != OperationCode.Login) return;
             switch (subCode)

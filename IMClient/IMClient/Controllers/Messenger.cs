@@ -11,7 +11,7 @@ namespace IMClient.Controllers
     {
         public static event SuccessNullDelegate OnSuccessNullEvent;
         public static event SuccessOperationRequestDelegate OnSuccessOperationRequestEvent;
-        public static event SuccessOperationResponseDelegate SuccessOperationResponseEvent;
+        public static event SuccessOperationResponseDelegate OnSuccessOperationResponseEvent;
 
         public static void Broadcast(OperationCode operationCode, SubCode subCode)
         {
@@ -25,7 +25,7 @@ namespace IMClient.Controllers
         
         public static void Broadcast(OperationCode operationCode, SubCode subCode, OperationResponse response)
         {
-            SuccessOperationResponseEvent?.Invoke(operationCode, subCode, response);
+            OnSuccessOperationResponseEvent?.Invoke(operationCode, subCode, response);
         }
     }
 }

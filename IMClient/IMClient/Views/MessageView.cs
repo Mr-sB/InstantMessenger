@@ -17,7 +17,7 @@ namespace IMClient.Views
 
         private void Init()
         {
-            Messenger.OnSuccessOperationRequestEvent += OnSuccessEvent;
+            Messenger.OnSuccessOperationRequestEvent += OnSuccessOperationRequestEvent;
             List<MessageItem> messages = new List<MessageItem>();
             for (int i = 0; i < 30; i++)
             {
@@ -31,7 +31,7 @@ namespace IMClient.Views
             contactTabButton.Click += delegate { mActivity.ChangeContentView<ContactView>(); };
         }
 
-        private void OnSuccessEvent(OperationCode operationCode, SubCode subCode, OperationRequest request)
+        private void OnSuccessOperationRequestEvent(OperationCode operationCode, SubCode subCode, OperationRequest request)
         {
             //TODO
             if(operationCode != OperationCode.Chat) return;
@@ -39,7 +39,7 @@ namespace IMClient.Views
         
         public override void OnViewChanged()
         {
-            Messenger.OnSuccessOperationRequestEvent -= OnSuccessEvent;
+            Messenger.OnSuccessOperationRequestEvent -= OnSuccessOperationRequestEvent;
         }
     }
 }

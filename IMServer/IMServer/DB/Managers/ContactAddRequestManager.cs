@@ -9,7 +9,7 @@ namespace IMServer.DB.Managers
         {
             return NHibernateHelper.OpenDB(session =>
             {
-                var res = session.QueryOver<ContactAddRequest>().Where(x => x.RequestUser.Username == requestUsername
+                var res = session.QueryOver<ContactAddRequest>().Where(x => x.RequestUsername == requestUsername
                     && x.ContactUsername == contactUsername);
                 var list = res.List();
                 if (list != null && list.Count > 0) return list[0];
@@ -20,7 +20,7 @@ namespace IMServer.DB.Managers
         public static void AddContactAddRequest(ContactAddRequest contactAddRequest)
         {
             //重复添加
-            if (GetContactAddRequest(contactAddRequest.RequestUser.Username, contactAddRequest.ContactUsername) != null) return;
+            if (GetContactAddRequest(contactAddRequest.RequestUsername, contactAddRequest.ContactUsername) != null) return;
             NHibernateHelper.OpenDB(session =>
             {
                 session.Save(contactAddRequest);
@@ -31,7 +31,7 @@ namespace IMServer.DB.Managers
         {
             NHibernateHelper.OpenDB(session =>
             {
-                var res = session.QueryOver<ContactAddRequest>().Where(x => x.RequestUser.Username == requestUsername
+                var res = session.QueryOver<ContactAddRequest>().Where(x => x.RequestUsername == requestUsername
                     && x.ContactUsername == contactUsername);
                 var list = res.List();
                 if (list == null || list.Count <= 0) return;
@@ -47,11 +47,23 @@ namespace IMServer.DB.Managers
             });
         }
 
-        public static List<ContactAddRequest> GetContactAddRequestList(string contactUsername)
+        public static List<ContactAddRequest> GetContactAddRequestList(string requestUsername)
         {
             return NHibernateHelper.OpenDB(session =>
             {
-                var res = session.QueryOver<ContactAddRequest>().Where(x => x.ContactUsername == contactUsername);
+                var res = session.QueryOver<ContactAddRequest>().Where(
+                    x => x.RequestUsername == requestUsername);
+                if (res.List() is List<ContactAddRequest> list && list.Count > 0) return list;
+                return null;
+            });
+        }
+        
+        public static List<ContactAddRequest> GetContactAddContactedList(string contactUsername)
+        {
+            return NHibernateHelper.OpenDB(session =>
+            {
+                var res = session.QueryOver<ContactAddRequest>().Where(
+                    x => x.ContactUsername == contactUsername);
                 if (res.List() is List<ContactAddRequest> list && list.Count > 0) return list;
                 return null;
             });

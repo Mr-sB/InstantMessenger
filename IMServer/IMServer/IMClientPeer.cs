@@ -34,6 +34,19 @@ namespace IMServer
                 handler.OnOperationRequest(this, request);
         }
 
+        protected override void OnOperationResponse(OperationResponse response)
+        {
+            if(!response.Parameters.TryGetOperationCode(out var operationCode))
+            {
+                mLogger.Error("Get OperationCode Fail");
+                SendResponse(ReturnCode.OperationCodeException,
+                    ESocketParameterTool.NewParameters.AddOperationCode(OperationCode.Unknow));
+                return;
+            }
+            if (IMApplication.Instance.TryGetHandler(operationCode, out var handler))
+                handler.OnOperationResponse(this, response);
+        }
+
         protected override void OnDisconnect()
         {
             if (LoginUser != null)

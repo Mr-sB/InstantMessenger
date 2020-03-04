@@ -10,7 +10,7 @@ namespace IMServer.DB.Mappings
             Table("contact");
             Id(x => x.ID, "id");
             Map(x => x.Username, "username");
-            References(x => x.ContactUser, "contactusername");
+            Map(x => x.ContactUsername, "contactusername");
         }
     }
 }
