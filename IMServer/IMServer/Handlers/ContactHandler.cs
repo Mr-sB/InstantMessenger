@@ -97,9 +97,9 @@ namespace IMServer.Handlers
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.USERNAME, out string contactUsername)) return;
             //DB模糊查询
-            var user = UserManager.FuzzySearchByUsername(contactUsername);
-            if (user != null)
-                parameters.AddParameter(ParameterKeys.USER_MODEL, user);
+            var users = UserManager.FuzzySearchByUsername(contactUsername);
+            if (users != null)
+                parameters.AddParameter(ParameterKeys.USER_MODEL_LIST, new UserListModel(users));
             //回应
             peer.SendResponse(ReturnCode.Success, parameters);
         }

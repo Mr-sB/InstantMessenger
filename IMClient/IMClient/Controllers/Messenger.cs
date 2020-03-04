@@ -1,18 +1,31 @@
+using ESocket.Common;
 using IMCommon;
 
 namespace IMClient.Controllers
 {
-    public delegate void SuccessDelegate(OperationCode operationCode, SubCode subCode);
-    public delegate void SuccessDelegate<in T>(OperationCode operationCode, SubCode subCode, T arg);
-    public delegate void SuccessDelegate<in TT, in TU>(OperationCode operationCode, SubCode subCode, TT arg, TU arg2);
+    public delegate void SuccessNullDelegate(OperationCode operationCode, SubCode subCode);
+    public delegate void SuccessOperationRequestDelegate(OperationCode operationCode, SubCode subCode, OperationRequest request);
+    public delegate void SuccessOperationResponseDelegate(OperationCode operationCode, SubCode subCode, OperationResponse response);
 
     public static class Messenger
     {
-        public static event SuccessDelegate OnSuccessEvent;
+        public static event SuccessNullDelegate OnSuccessNullEvent;
+        public static event SuccessOperationRequestDelegate OnSuccessOperationRequestEvent;
+        public static event SuccessOperationResponseDelegate SuccessOperationResponseEvent;
 
         public static void Broadcast(OperationCode operationCode, SubCode subCode)
         {
-            OnSuccessEvent?.Invoke(operationCode, subCode);
+            OnSuccessNullEvent?.Invoke(operationCode, subCode);
+        }
+        
+        public static void Broadcast(OperationCode operationCode, SubCode subCode, OperationRequest request)
+        {
+            OnSuccessOperationRequestEvent?.Invoke(operationCode, subCode, request);
+        }
+        
+        public static void Broadcast(OperationCode operationCode, SubCode subCode, OperationResponse response)
+        {
+            SuccessOperationResponseEvent?.Invoke(operationCode, subCode, response);
         }
     }
 }

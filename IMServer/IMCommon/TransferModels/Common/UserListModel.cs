@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IMCommon.DB.Models;
 
 namespace IMCommon.TransferModels
 {
@@ -9,6 +10,13 @@ namespace IMCommon.TransferModels
         public UserListModel(List<UserModel> users)
         {
             Users = users;
+        }
+        
+        public UserListModel(List<User> users)
+        {
+            Users = new List<UserModel>();
+            foreach (var c in users)
+                Users.Add(new UserModel(c));
         }
     }
 }

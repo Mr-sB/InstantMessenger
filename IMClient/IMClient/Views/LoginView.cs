@@ -1,4 +1,3 @@
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using ESocket.Common;
@@ -31,7 +30,7 @@ namespace IMClient.Views
 
         private void Init()
         {
-            Messenger.OnSuccessEvent += OnSuccessEvent;
+            Messenger.OnSuccessNullEvent += OnSuccessEvent;
             mUsernameText = FindViewById<EditText>(Resource.Id.UsernameText);
             mPasswordText = FindViewById<EditText>(Resource.Id.PasswordText);
             mNicknameText = FindViewById<EditText>(Resource.Id.NicknameText);
@@ -104,7 +103,7 @@ namespace IMClient.Views
         
         public override void OnViewChanged()
         {
-            Messenger.OnSuccessEvent -= OnSuccessEvent;
+            Messenger.OnSuccessNullEvent -= OnSuccessEvent;
         }
 
         private void ChangeLoginViewState(bool isSignIn)

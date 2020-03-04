@@ -6,9 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <Button
+            android:text="添加好友"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp" android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:id="@+id/AddContactButton"/>
     <ListView
             android:layout_width="match_parent"
-            android:layout_height="679dp" android:id="@+id/MessageListView"/>
+            android:layout_height="646dp" android:id="@+id/ContactListView"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="horizontal">
@@ -30,4 +36,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp" android:id="@+id/ConsoleText"/>
+
 </LinearLayout>

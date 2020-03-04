@@ -16,8 +16,8 @@ namespace IMClient.Controllers
                 ((ReturnCode)response.ReturnCode).ToString().ToastOnSubThread();
                 return;
             }
-            response.Parameters.TryGetSubCode(out var subCode);
-            Messenger.Broadcast(OperationCode, subCode);
+            if(response.Parameters.TryGetSubCode(out var subCode))
+                Messenger.Broadcast(OperationCode, subCode);
         }
     }
 }

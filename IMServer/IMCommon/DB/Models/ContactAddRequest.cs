@@ -26,7 +26,7 @@
         /// </summary>
         public virtual int ResponseCode { get; set; }
 
-        public ContactAddResponseCode GetResponseCode()
+        public virtual ContactAddResponseCode GetResponseCode()
         {
             return (ContactAddResponseCode) ResponseCode;
         }
