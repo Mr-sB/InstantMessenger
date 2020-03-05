@@ -11,10 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_gravity="center">
         <TextView
-                android:text="新朋友"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:textSize="18sp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_height="wrap_content" android:textSize="18sp"
+                android:layout_gravity="center_vertical" android:id="@+id/ChatName"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -29,10 +28,29 @@
     </LinearLayout>
     <ListView
             android:layout_width="match_parent"
-            android:layout_height="686dp" android:id="@+id/NewContactListView"/>
+            android:layout_height="638dp" android:id="@+id/ChatListView">
+    </ListView>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_gravity="center">
+        <EditText
+                android:layout_width="293dp"
+                android:layout_height="wrap_content" android:id="@+id/ChatSendMessageText" android:textSize="18sp"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:gravity="right">
+            <Button
+                    android:text="发送"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:id="@+id/ChatSendButton"/>
+        </LinearLayout>
+    </LinearLayout>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp" android:id="@+id/ConsoleText"/>
-
 </LinearLayout>

@@ -57,7 +57,7 @@ namespace IMServer.Handlers
                 else
                     records.AddRange(tmpRec);
             }
-            records?.Sort((left, right) => left.Time.CompareTo(right));
+            records?.Sort((left, right) => left.Time.CompareTo(right.Time));
             //响应
             peer.SendResponse(ReturnCode.Success, parameters.AddParameter(ParameterKeys.CHAT_RECORD_RESPONSE, new ChatRecordResponseModel(records)));
         }
@@ -103,11 +103,11 @@ namespace IMServer.Handlers
         private void OnWord(IMClientPeer peer, Dictionary<string, object> parameters, Chat chat)
         {
             //给发送方响应消息发送成功
-            peer.SendResponse(ReturnCode.Success, parameters);
+            peer.SendResponse(ReturnCode.Success, parameters.AddParameter(ParameterKeys.CHAT_INFO, chat));
             //给接收方放发送消息
             if(IMApplication.Instance.TryGetPeerByUsername(chat.ReceiveUsername, out var receivePeer))
             {
-                receivePeer.SendRequest(parameters.AddParameter(ParameterKeys.CHAT_INFO, chat));
+                receivePeer.SendRequest(parameters);
             }
         }
 

@@ -18,12 +18,12 @@ namespace IMClient.Views
         private void Init()
         {
             Messenger.OnSuccessOperationRequestEvent += OnSuccessOperationRequestEvent;
-            List<MessageItem> messages = new List<MessageItem>();
-            for (int i = 0; i < 30; i++)
-            {
-                messages.Add(new MessageItem("Name" + i, "Content" + i));
-            }
-            FindViewById<ListView>(Resource.Id.MessageListView).Adapter = new MessageAdapter(mActivity, Resource.Layout.MessageItem, messages);
+            // List<MessageItem> messages = new List<MessageItem>();
+            // for (int i = 0; i < 30; i++)
+            // {
+            //     messages.Add(new MessageItem("Name" + i, "Content" + i));
+            // }
+            // FindViewById<ListView>(Resource.Id.MessageListView).Adapter = new MessageAdapter(mActivity, Resource.Layout.MessageItem, messages);
 
             FindViewById<RadioButton>(Resource.Id.MessageTabButton).Selected = true;
             var contactTabButton = FindViewById<RadioButton>(Resource.Id.ContactTabButton);

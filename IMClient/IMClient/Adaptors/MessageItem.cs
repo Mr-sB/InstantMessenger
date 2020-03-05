@@ -1,13 +1,15 @@
+using IMCommon.TransferModels;
+
 namespace IMClient.Adaptors
 {
     public class MessageItem
     {
-        public readonly string Name;
+        public readonly UserModel UserModel;
         public readonly string Content;
 
-        public MessageItem(string name, string content)
+        public MessageItem(UserModel userModel, string content)
         {
-            Name = name;
+            UserModel = userModel;
             Content = content;
         }
     }

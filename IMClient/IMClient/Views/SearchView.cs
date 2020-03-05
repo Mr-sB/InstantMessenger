@@ -15,7 +15,7 @@ namespace IMClient.Views
 {
     public class SearchView : ViewBase
     {
-        private ListView mContactListView;
+        private ListView mSearchListView;
         private ViewGroup mCurSelectedViewGroup;
         
         protected override void OnInit()
@@ -48,12 +48,12 @@ namespace IMClient.Views
                     .AddSubCode(SubCode.Contact_Search)
                     .AddParameter(ParameterKeys.USERNAME, usernameText.Text));
             };
-            mContactListView = FindViewById<ListView>(Resource.Id.ContactListView);
-            mContactListView.ItemClick += (sender, args) =>
+            mSearchListView = FindViewById<ListView>(Resource.Id.SearchListView);
+            mSearchListView.ItemClick += (sender, args) =>
             {
                 if(mCurSelectedViewGroup != null)
                     mCurSelectedViewGroup.Visibility = ViewStates.Gone;
-                mCurSelectedViewGroup = args.View.FindViewById<ViewGroup>(Resource.Id.ContactItemRightLayout);
+                mCurSelectedViewGroup = args.View.FindViewById<ViewGroup>(Resource.Id.SearchItemRightLayout);
                 mCurSelectedViewGroup.Visibility = ViewStates.Visible;
                 // AddToConsole(args.View.GetType().ToString() + args.Parent.GetType() + args.Parent.SelectedItemPosition + "  " + args.Id + "  " + args.Position, false);
             };
@@ -71,20 +71,34 @@ namespace IMClient.Views
             {
                 case SubCode.Contact_Search:
                     AddToConsole("查找成功", false);
-                    if (response.Parameters.TryGetParameter(ParameterKeys.USER_MODEL_LIST, out UserListModel model) && model != null)
+                    if (response.Parameters.TryGetParameter(ParameterKeys.USER_MODEL_LIST, out UserListModel model) && model?.Users != null)
                     {
-                        List<ContactItem> contacts = new List<ContactItem>(model.Users.Count);
+                        List<SearchItem> contacts = new List<SearchItem>(model.Users.Count);
                         foreach (var user in model.Users)
-                            contacts.Add(new ContactItem(user));
+                        {
+                            if(user.Username == LoginController.Instance.LoginUser.Username) continue;
+                            contacts.Add(new SearchItem(user));
+                        }
+                        
+
                         RunOnUiThread(() =>
                         {
-                            mContactListView.Adapter = new ContactAdapter(mActivity, Resource.Layout.ContactItem, contacts);
+                            mSearchListView.Adapter =
+                                new SearchAdapter(mActivity, Resource.Layout.SearchItem, contacts);
                         });
+                        if(contacts.Count <= 0)
+                            AddToConsole("查无此人", false);
                     }
                     else
                     {
                         AddToConsole("查无此人", false);
+                        RunOnUiThread(() =>
+                        {
+                            mSearchListView.Adapter =
+                                new SearchAdapter(mActivity, Resource.Layout.SearchItem, new List<SearchItem>());
+                        });
                     }
+
                     break;
                 //TODO
             }

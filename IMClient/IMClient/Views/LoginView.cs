@@ -135,14 +135,17 @@ namespace IMClient.Views
         private void OnSignInSuccess()
         {
             AddToConsole("登录成功!", false);
-            //切换到聊天View
-            mActivity.ChangeContentView<MessageView>();
+            //切换到联系人View
+            mActivity.ChangeContentView<ContactView>();
         }
 
         private void OnSignUpSuccess()
         {
             AddToConsole("注册成功!", false);
-            ChangeLoginViewState(true);
+            RunOnUiThread(() =>
+            {
+                ChangeLoginViewState(true);
+            });
         }
     }
 }

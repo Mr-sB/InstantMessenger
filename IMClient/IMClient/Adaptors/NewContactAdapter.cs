@@ -117,7 +117,7 @@ namespace IMClient.Adaptors
             return view;
         }
 
-        private void OnResponseClick(ContactAddClientResponseModel responseModel)
+        private static void OnResponseClick(ContactAddClientResponseModel responseModel)
         {
             SocketEngine.Instance.Peer.SendResponse((int) ReturnCode.Success, ESocketParameterTool.NewParameters
                 .AddOperationCode(OperationCode.Contact)

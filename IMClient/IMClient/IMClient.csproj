@@ -75,12 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Adaptors\ChatAdapter.cs" />
     <Compile Include="Adaptors\ContactAdapter.cs" />
-    <Compile Include="Adaptors\ContactItem.cs" />
+    <Compile Include="Adaptors\SearchAdapter.cs" />
+    <Compile Include="Adaptors\SearchItem.cs" />
     <Compile Include="Adaptors\MessageAdapter.cs" />
     <Compile Include="Adaptors\MessageItem.cs" />
     <Compile Include="Adaptors\NewContactAdapter.cs" />
     <Compile Include="Adaptors\NewContactItem.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -92,7 +95,9 @@
     <Compile Include="Socket\ClientListener.cs" />
     <Compile Include="Socket\SocketEngine.cs" />
     <Compile Include="Tools\Singleton.cs" />
+    <Compile Include="Tools\TimeUtil.cs" />
     <Compile Include="Tools\ToastUtil.cs" />
+    <Compile Include="Views\ChatView.cs" />
     <Compile Include="Views\ContactView.cs" />
     <Compile Include="Views\LoginView.cs" />
     <Compile Include="Views\MessageView.cs" />
@@ -106,8 +111,14 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\Chat.axml" />
+    <AndroidResource Include="Resources\layout\ChatItem.axml" />
     <AndroidResource Include="Resources\layout\Contact.axml" />
-    <AndroidResource Include="Resources\layout\ContactItem.axml" />
+    <AndroidResource Include="Resources\layout\ContactItem.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchItem.axml" />
     <AndroidResource Include="Resources\layout\NewContact.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>

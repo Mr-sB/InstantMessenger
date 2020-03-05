@@ -6,7 +6,7 @@ namespace IMClient.Adaptors
     public class NewContactItem
     {
         public readonly bool IsRequest;//请求方还是被请求方
-        public readonly ContactAddRequest.ContactAddResponseCode ResponseCode;
+        public ContactAddRequest.ContactAddResponseCode ResponseCode;
         public readonly string Username;
         public readonly string Nickname;
         public NewContactItem(bool isRequest, ContactAddRequest.ContactAddResponseCode responseCode, string username, string nickname)

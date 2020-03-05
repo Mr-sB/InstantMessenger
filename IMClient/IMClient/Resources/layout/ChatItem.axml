@@ -7,10 +7,15 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10px" android:paddingTop="10px"
         android:paddingRight="10px" android:paddingBottom="10px" android:paddingStart="10px" android:paddingEnd="10px"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical" android:orientation="vertical">
     <TextView
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp" android:id="@+id/ContactItemName"/>
+            android:textSize="14sp" android:id="@+id/ChatItemInfo"/>
+    <TextView
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" android:id="@+id/ChatItemMessage"/>
 </LinearLayout>

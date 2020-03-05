@@ -59,7 +59,7 @@ namespace IMClient.Adaptors
             TextView nameView = view.FindViewById<TextView>(Resource.Id.MessageItemName);
             TextView contentView = view.FindViewById<TextView>(Resource.Id.MessageItemContent);
             //设置
-            nameView.Text = message.Name;
+            nameView.Text = $"{message.UserModel.Nickname}({message.UserModel.Username})";
             contentView.Text = message.Content;
             return view;
         }

@@ -12,5 +12,16 @@
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp" android:id="@+id/ContactItemName"/>
+            android:textSize="24sp" android:id="@+id/SearchItemName"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="right|center_vertical"
+            tools:visibility="visible" android:id="@+id/SearchItemRightLayout">
+        <Button
+                android:text="添加"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textSize="24sp"
+                android:paddingRight="10dp" android:id="@+id/SearchItemAddButton"/>
+    </LinearLayout>
 </LinearLayout>

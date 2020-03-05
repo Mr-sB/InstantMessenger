@@ -97,8 +97,8 @@ namespace IMServer.Handlers
             }
             //记录事件
             mLogger.InfoFormat("用户登录:{0}", model.Username);
-            //TODO登陆成功发送一些用户基本信息 好友列表之类的
-            peer.SendResponse(ReturnCode.Success, parameters);
+            peer.SendResponse(ReturnCode.Success,
+                parameters.AddParameter(ParameterKeys.USER_MODEL, new UserModel(dbUser)));
             //服务器记录下用户登录成功，如果在这之前有别的客户端登陆了这个账号，挤掉
             IMApplication.Instance.AddLoginUser(dbUser, peer);
         }

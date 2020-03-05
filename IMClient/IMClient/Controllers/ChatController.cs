@@ -2,13 +2,21 @@ using ESocket.Common;
 using IMClient.Tools;
 using IMCommon;
 using IMCommon.Tools;
+using IMCommon.TransferModels;
 
 namespace IMClient.Controllers
 {
-    public class ContactController : ControllerBase
+    public class ChatController : ControllerBase
     {
-        public override OperationCode OperationCode => OperationCode.Contact;
+        public override OperationCode OperationCode => OperationCode.Chat;
+        public static ChatController Instance { private set; get; }
+        public UserModel CurChatUser;
 
+        public ChatController()
+        {
+            Instance = this;
+        }
+        
         public override void OnOperationRequest(OperationRequest request)
         {
             if(request.Parameters.TryGetSubCode(out var subCode))
