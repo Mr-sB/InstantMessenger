@@ -13,7 +13,8 @@
         //Contact
         Contact_List,//联系人列表
         Contact_Search,//查找联系人
-        Contact_Add,//加好友请求
+        Contact_Add_Request,//加好友请求
+        Contact_Add_Response,//加好友回应
         Contact_Delete,//删除好友
         Contact_Add_List,//加好友请求列表
     }

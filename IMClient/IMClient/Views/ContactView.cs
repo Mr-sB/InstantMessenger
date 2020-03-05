@@ -62,7 +62,7 @@ namespace IMClient.Views
 
         private void SendContactListRequest()
         {
-            SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+            SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                 .AddOperationCode(OperationCode.Contact)
                 .AddSubCode(SubCode.Contact_List));
             AddToConsole("请求联系人列表中...", false);
@@ -73,7 +73,7 @@ namespace IMClient.Views
             if(operationCode != OperationCode.Contact) return;
             switch (subCode)
             {
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Response:
                     
                     break;
             }
@@ -106,7 +106,7 @@ namespace IMClient.Views
                         });
                     }
                     break;
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Response:
                     
                     break;
             }

@@ -19,10 +19,10 @@ namespace IMClient.Activities
             Instance = this;
             ToastUtil.SetDefaultContext(this);
             base.OnCreate(savedInstanceState);
-            //连接服务器
-            SocketEngine.Instance.Connect();
             //创建View
             ChangeContentView<LoginView>();
+            //连接服务器
+            SocketEngine.Instance.Connect();
         }
 
         protected override void OnDestroy()

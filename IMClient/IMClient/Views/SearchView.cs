@@ -43,7 +43,7 @@ namespace IMClient.Views
                     return;
                 }
                 AddToConsole("查找中...", false);
-                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Contact)
                     .AddSubCode(SubCode.Contact_Search)
                     .AddParameter(ParameterKeys.USERNAME, usernameText.Text));

@@ -35,14 +35,14 @@ namespace IMServer.Handlers
                 case SubCode.Contact_Search:
                     OnSearchRequest(peer, request);
                     break;
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Request:
                     OnAddRequest(peer, request);
                     break;
                 case SubCode.Contact_Delete:
                     OnDeleteRequest(peer, request);
                     break;
                 case SubCode.Contact_Add_List:
-                    OnAddListRequest(peer, request);
+                    OnAddListRequest(peer);
                     break;
                 default:
                     mLogger.ErrorFormat("消息错误！客户端:{0},用户名:{1},SubCode未知:{2}", peer, peer.LoginUser, subCode);
@@ -68,7 +68,7 @@ namespace IMServer.Handlers
             }
             switch (subCode)
             {
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Response:
                     OnAddResponse(peer, response);
                     break;
                 default:
@@ -110,20 +110,24 @@ namespace IMServer.Handlers
 
         private void OnAddRequest(IMClientPeer peer, OperationRequest request)
         {
-            const SubCode subCode = SubCode.Contact_Add;
+            const SubCode subCode = SubCode.Contact_Add_Request;
             if (!TryInitResponse(subCode, peer, request, out var parameters,
                 ParameterKeys.USERNAME, out string contactUsername)) return;
             
             var contactAddRequest = ContactAddRequestManager.GetContactAddRequest(peer.LoginUser?.Username, contactUsername);
+            const int wait = (int) ContactAddRequest.ContactAddResponseCode.Waite;
             if (contactAddRequest != null)
             {
-                const int wait = (int) ContactAddRequest.ContactAddResponseCode.Waite;
-                if (contactAddRequest.ResponseCode != wait)
+                //无需再次添加
+                if (contactAddRequest.ResponseCode == wait)
                 {
-                    //DB更新
-                    contactAddRequest.ResponseCode = wait;
-                    ContactAddRequestManager.UpdateContactAddRequest(contactAddRequest);
+                    //回应
+                    peer.SendResponse(ReturnCode.Success, parameters);
+                    return;
                 }
+                //DB更新
+                contactAddRequest.ResponseCode = wait;
+                ContactAddRequestManager.UpdateContactAddRequest(contactAddRequest);
             }
             else
             {
@@ -132,7 +136,7 @@ namespace IMServer.Handlers
                 {
                     RequestUsername = peer.LoginUser.Username,
                     ContactUsername = contactUsername,
-                    ResponseCode = (int) ContactAddRequest.ContactAddResponseCode.Waite
+                    ResponseCode = wait
                 });
             }
 
@@ -141,10 +145,10 @@ namespace IMServer.Handlers
             //如果对方在线，直接发送请求
             if(IMApplication.Instance.TryGetPeerByUsername(contactUsername, out var contactPeer))
             {
-                contactPeer.SendRequest(ESocketParameterTool.NewParameters
-                    .AddOperationCode(OperationCode)
-                    .AddSubCode(SubCode.Contact_Add)
-                    .AddParameter(ParameterKeys.USER_MODEL, new UserModel(peer.LoginUser)));
+                contactPeer.SendRequest(parameters
+                    .AddParameter(ParameterKeys.CONTACT_ADD_SERVER_RESPONSE,
+                        new ContactAddServerResponseModel(false, ContactAddRequest.ContactAddResponseCode.Waite,
+                            new UserModel(peer.LoginUser))));
             }
         }
 
@@ -166,7 +170,7 @@ namespace IMServer.Handlers
             }
         }
 
-        private void OnAddListRequest(IMClientPeer peer, OperationRequest request)
+        private void OnAddListRequest(IMClientPeer peer)
         {
             var requestList = ContactAddRequestManager.GetContactAddRequestList(peer.LoginUser?.Username);
             var contactedList = ContactAddRequestManager.GetContactAddContactedList(peer.LoginUser?.Username);
@@ -189,7 +193,7 @@ namespace IMServer.Handlers
 
         private void OnAddResponse(IMClientPeer peer, OperationResponse response)
         {
-            const SubCode subCode = SubCode.Contact_Add;
+            const SubCode subCode = SubCode.Contact_Add_Response;
             if (!TryInitResponse(subCode, peer, response, out var parameters,
                 ParameterKeys.CONTACT_ADD_CLIENT_RESPONSE, out ContactAddClientResponseModel model)) return;
             if (peer.LoginUser == null)

@@ -51,7 +51,7 @@ namespace IMClient.Views
         private void SendAddListRequest()
         {
             //请求添加列表
-            SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+            SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                 .AddOperationCode(OperationCode.Contact)
                 .AddSubCode(SubCode.Contact_Add_List));
             AddToConsole("请求列表...", false);
@@ -62,18 +62,30 @@ namespace IMClient.Views
             if(operationCode != OperationCode.Contact) return;
             switch (subCode)
             {
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Request:
+                    //添加
+                    if (request.Parameters.TryGetParameter(ParameterKeys.CONTACT_ADD_SERVER_RESPONSE,
+                        out ContactAddServerResponseModel model1) && model1 != null)
+                    {
+                        mNewContactAdapter.Add(new NewContactItem(model1));
+                        RunOnUiThread(() =>
+                        {
+                            mNewContactAdapter?.NotifyDataSetChanged();
+                        });
+                    }
+                    break;
+                case SubCode.Contact_Add_Response:
                     //更改状态
                     if (request.Parameters.TryGetParameter(ParameterKeys.CONTACT_ADD_SERVER_RESPONSE,
-                        out ContactAddServerResponseModel model) && model != null)
+                        out ContactAddServerResponseModel model2) && model2 != null)
                     {
                         for (int i = 0, count = mNewContacts.Count; i < count; i++)
                         {
                             var newContact = mNewContacts[i];
-                            if (newContact.IsRequest == model.IsRequest &&
-                                newContact.Username == model.ContactUser.Username)
+                            if (newContact.IsRequest == model2.IsRequest &&
+                                newContact.Username == model2.ContactUser.Username)
                             {
-                                newContact.ResponseCode = model.ResponseCode;
+                                newContact.ResponseCode = model2.ResponseCode;
                                 RunOnUiThread(() =>
                                 {
                                     mNewContactAdapter?.NotifyDataSetChanged();
@@ -116,7 +128,7 @@ namespace IMClient.Views
                         });
                     }
                     break;
-                case SubCode.Contact_Add:
+                case SubCode.Contact_Add_Response:
                     //更改状态
                     if (response.Parameters.TryGetParameter(ParameterKeys.CONTACT_ADD_SERVER_RESPONSE,
                         out ContactAddServerResponseModel model) && model != null)

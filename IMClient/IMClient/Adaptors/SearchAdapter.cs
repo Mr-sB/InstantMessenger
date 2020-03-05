@@ -66,9 +66,9 @@ namespace IMClient.Adaptors
             view.FindViewById<ViewGroup>(Resource.Id.SearchItemRightLayout).Visibility = ViewStates.Gone;
             view.FindViewById<Button>(Resource.Id.SearchItemAddButton).Click += delegate
             {
-                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Contact)
-                    .AddSubCode(SubCode.Contact_Add)
+                    .AddSubCode(SubCode.Contact_Add_Request)
                     .AddParameter(ParameterKeys.USERNAME, search.Username));
                 MainActivity.Instance.AddToConsole("请求添加:" + search.Username, false);
             };

@@ -95,7 +95,6 @@
     <Compile Include="Socket\ClientListener.cs" />
     <Compile Include="Socket\SocketEngine.cs" />
     <Compile Include="Tools\Singleton.cs" />
-    <Compile Include="Tools\TimeUtil.cs" />
     <Compile Include="Tools\ToastUtil.cs" />
     <Compile Include="Views\ChatView.cs" />
     <Compile Include="Views\ContactView.cs" />

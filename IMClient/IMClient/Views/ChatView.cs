@@ -36,7 +36,7 @@ namespace IMClient.Views
             FindViewById<Button>(Resource.Id.ChatSendButton).Click += delegate
             {
                 AddToConsole("发送消息中...", false);
-                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Chat)
                     .AddSubCode(SubCode.Chat_Message)
                     .AddParameter(ParameterKeys.CHAT_MESSAGE_REQUEST,
@@ -69,7 +69,7 @@ namespace IMClient.Views
         private void SendRecordRequest()
         {
             AddToConsole("请求聊天记录中...", false);
-            SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+            SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                 .AddOperationCode(OperationCode.Chat)
                 .AddSubCode(SubCode.Chat_Record)
                 .AddParameter(ParameterKeys.CHAT_RECORD_REQUEST, new ChatRecordRequestModel(ChatController.Instance.CurChatUser.Username, 0, 7)));

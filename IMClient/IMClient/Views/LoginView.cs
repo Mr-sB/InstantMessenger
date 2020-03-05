@@ -1,6 +1,5 @@
 using Android.Views;
 using Android.Widget;
-using ESocket.Common;
 using ESocket.Common.Tools;
 using IMClient.Controllers;
 using IMClient.Socket;
@@ -51,17 +50,12 @@ namespace IMClient.Views
                     "密码不能为空!".Toast();
                     return;
                 }
-                if(SocketEngine.Instance.ConnectCode != ConnectCode.Connect)
-                {
-                    "等待连接...".Toast();
-                    SocketEngine.Instance.Connect();
-                    return;
-                }
                 AddToConsole("登录中...", false);
-                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Login)
                     .AddSubCode(SubCode.Login_SignIn)
                     .AddParameter(ParameterKeys.LOGIN_SIGN_IN_REQUEST, new SignInRequestModel(mUsernameText.Text, mPasswordText.Text)));
+                LoginController.Instance.Password = mPasswordText.Text;
             };
 
             mSignUpButton.Click += delegate
@@ -81,14 +75,8 @@ namespace IMClient.Views
                     "昵称不能为空!".Toast();
                     return;
                 }
-                if(SocketEngine.Instance.ConnectCode != ConnectCode.Connect)
-                {
-                    "等待连接...".Toast();
-                    SocketEngine.Instance.Connect();
-                    return;
-                }
                 AddToConsole("注册中...", false);
-                SocketEngine.Instance.Peer.SendRequest(ESocketParameterTool.NewParameters
+                SocketEngine.Instance.SendRequest(ESocketParameterTool.NewParameters
                     .AddOperationCode(OperationCode.Login)
                     .AddSubCode(SubCode.Login_SignUp)
                     .AddParameter(ParameterKeys.LOGIN_SIGN_UP_REQUEST,

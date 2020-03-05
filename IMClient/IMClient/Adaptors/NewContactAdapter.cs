@@ -119,9 +119,9 @@ namespace IMClient.Adaptors
 
         private static void OnResponseClick(ContactAddClientResponseModel responseModel)
         {
-            SocketEngine.Instance.Peer.SendResponse((int) ReturnCode.Success, ESocketParameterTool.NewParameters
+            SocketEngine.Instance.SendResponse(ReturnCode.Success, ESocketParameterTool.NewParameters
                 .AddOperationCode(OperationCode.Contact)
-                .AddSubCode(SubCode.Contact_Add)
+                .AddSubCode(SubCode.Contact_Add_Response)
                 .AddParameter(ParameterKeys.CONTACT_ADD_CLIENT_RESPONSE, responseModel));
             MainActivity.Instance.AddToConsole("回应添加请求:" + responseModel.RequestUsername + "," + responseModel.Accept, false);
         }
