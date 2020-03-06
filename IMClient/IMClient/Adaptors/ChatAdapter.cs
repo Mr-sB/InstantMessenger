@@ -64,7 +64,7 @@ namespace IMClient.Adaptors
                 : LoginController.Instance.LoginUser.Nickname;
             //获取实例
             view.FindViewById<TextView>(Resource.Id.ChatItemInfo).Text = $"{nickname} {chat.Time.ParseFromMilliseconds().UtcToLocalTime():G}";
-            switch ((Chat.MessageCode)chat.MessageType)
+            switch (chat.GetMessageCode())
             {
                 case Chat.MessageCode.Word:
                     view.FindViewById<TextView>(Resource.Id.ChatItemMessage).Text = chat.Message;
