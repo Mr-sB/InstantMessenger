@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using ESocket.Common.Tools;
+using IMClient.Controllers;
 using IMCommon.DB.Models;
 
 namespace IMClient.Adaptors
@@ -58,8 +59,11 @@ namespace IMClient.Adaptors
             //LayoutInflater的inflate()方法接收3个参数：需要实例化布局资源的id、ViewGroup类型视图组对象、false
             //false表示只让父布局中声明的layout属性生效，但不会为这个view添加父布局
             View view = LayoutInflater.From(Context).Inflate(mResourceId, parent, false);
+            string nickname = ChatController.Instance.CurChatUser.Username == chat.SendUsername
+                ? ChatController.Instance.CurChatUser.Nickname
+                : LoginController.Instance.LoginUser.Nickname;
             //获取实例
-            view.FindViewById<TextView>(Resource.Id.ChatItemInfo).Text = $"{chat.SendUsername} {chat.Time.ParseFromMilliseconds().UtcToLocalTime():G}";
+            view.FindViewById<TextView>(Resource.Id.ChatItemInfo).Text = $"{nickname} {chat.Time.ParseFromMilliseconds().UtcToLocalTime():G}";
             switch ((Chat.MessageCode)chat.MessageType)
             {
                 case Chat.MessageCode.Word:

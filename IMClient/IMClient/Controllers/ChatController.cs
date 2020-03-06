@@ -10,7 +10,7 @@ namespace IMClient.Controllers
     {
         public override OperationCode OperationCode => OperationCode.Chat;
         public static ChatController Instance { private set; get; }
-        public UserModel CurChatUser;
+        public UserModel CurChatUser;//当前正在聊天的对象
 
         public ChatController()
         {
