@@ -41,7 +41,7 @@ namespace IMClient.Socket
         
         public void Connect()
         {
-            //MainActivity.Instance.AddToConsole("等待连接...", false);
+            MainActivity.Instance.AddToConsole("等待连接...", false);
             if (mConnecting || ConnectCode == ConnectCode.Connect) return;
             mConnecting = true;
             try
