@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
-using System.Threading.Tasks;
 using ESocket.Client;
 using ESocket.Common;
 using ESocket.Common.Tools;
@@ -12,6 +11,7 @@ using IMClient.Tools;
 using IMCommon;
 using IMCommon.Tools;
 using IMCommon.TransferModels;
+using Timer = IMClient.Tools.Timer;
 using TimeUtil = ESocket.Common.Tools.TimeUtil;
 
 namespace IMClient.Socket
@@ -137,21 +137,15 @@ namespace IMClient.Socket
                     if(mIsReconnecting) break;
                     mIsReconnecting = true;
                     //计算心跳超时时间 +3 是加上消息传输时间
-                    var second = mPeer.LastSendHeartbeatTime.AddSeconds(ESocketConst.HeartbeatTimeout + 3)
+                    var seconds = mPeer.LastSendHeartbeatTime.AddSeconds(ESocketConst.HeartbeatTimeout + 3)
                         .GetDifferenceSeconds(TimeUtil.GetCurrentUtcTime(), true);
-                    if (second < 0)
+                    if (seconds < 0)
                         Reconnect();
                     else
                     {
-                        $"{second}秒后进行重新连接".ToastOnSubThread();
-                        int millisecond = (int)(second * 1000);//转换为毫秒
+                        $"{seconds}秒后进行重新连接".ToastOnSubThread();
                         //延迟执行,等待服务端检测到客户端掉线，关闭Socket
-                        Task.Run(async delegate
-                        {
-                            await Task.Delay(millisecond);
-                            "Timer触发!".ToastOnSubThread();
-                            Reconnect();
-                        });
+                        Timer.DelayAction(Reconnect, seconds);
                     }
                     break;
             }
@@ -162,10 +156,8 @@ namespace IMClient.Socket
             mIsReconnecting = false;
             //网络原因掉线，自动重连
             if (mIsInitiativeDisconnect) return;
-            // "重新连接中...".ToastOnSubThread();
-            // MainActivity.Instance.AddToConsole("重新连接中...", false);
-            MainActivity.Instance.AddToConsole("重新连接中..."+mConnecting+" "+ConnectCode, false);
-            ("发送Connect请求"+mConnecting+" "+ConnectCode).ToastOnSubThread();
+            "重新连接中...".ToastOnSubThread();
+            MainActivity.Instance.AddToConsole("重新连接中...", false);
             Connect();
         }
     }
