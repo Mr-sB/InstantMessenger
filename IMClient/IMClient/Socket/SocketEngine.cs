@@ -145,7 +145,7 @@ namespace IMClient.Socket
                     {
                         $"{seconds}秒后进行重新连接".ToastOnSubThread();
                         //延迟执行,等待服务端检测到客户端掉线，关闭Socket
-                        Timer.DelayAction(Reconnect, seconds);
+                        Timer.DelayAction(seconds, Reconnect);
                     }
                     break;
             }

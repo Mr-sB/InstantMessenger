@@ -8,7 +8,7 @@ namespace IMClient.Tools
     {
         private CancellationTokenSource mTokenSource;
 
-        private Timer(Action action, float delay)
+        private Timer(float delay, Action action)
         {
             mTokenSource = new CancellationTokenSource();
             var token = mTokenSource.Token;
@@ -40,7 +40,7 @@ namespace IMClient.Tools
             }
         }
 
-        private static bool Check(Action action, float delay)
+        private static bool Check(float delay, Action action)
         {
             if(action == null) return false;
             if (delay > 0) return true;
@@ -52,11 +52,11 @@ namespace IMClient.Tools
         /// 延迟执行Action
         /// </summary>
         /// <param name="action">action</param>
-        /// <param name="delaySeconds">延迟时间(秒)</param>
+        /// <param name="delay">延迟时间(秒)</param>
         /// <returns>Timer</returns>
-        public static Timer DelayAction(Action action, float delaySeconds)
+        public static Timer DelayAction(float delay, Action action)
         {
-            return !Check(action, delaySeconds) ? null : new Timer(action, delaySeconds);
+            return !Check(delay, action) ? null : new Timer(delay, action);
         }
     }
 }
